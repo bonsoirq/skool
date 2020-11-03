@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Preferences } from './preferences';
+import { PreferencesRepo } from '../repos/preferences-repo';
 import SelectSaveFile from './SelectSaveFile';
 
 function App() {
-  const [preferences, setPreferences] = useState(new Preferences())
-  const noSaveFile = preferences.lastSaveFile == null
+  const [preferences, setPreferences] = useState(PreferencesRepo.fetch())
+  const noSaveFile = preferences.saveFilePath == null
   return (
     <>
       {noSaveFile && <SelectSaveFile setPath={(path: string) => {
-        const preferences = new Preferences()
-        preferences.setSaveFile(path)
+        const preferences = { saveFilePath: path }
         setPreferences(preferences)
+        PreferencesRepo.save(preferences)
       }} />}
     </>
   );
