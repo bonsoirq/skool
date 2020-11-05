@@ -6,7 +6,7 @@ import SelectSaveFile from './SelectSaveFile';
 
 function App() {
   const [preferences, setPreferences] = useState(PreferencesRepo.fetch())
-  const [_databaseConnection, setDatabaseConnection] = useState<Connection | null>(null)
+  const [, setDatabaseConnection] = useState<Connection | null>(null)
   const noSaveFile = preferences.saveFilePath == null
 
   if (preferences.saveFilePath != null) {
