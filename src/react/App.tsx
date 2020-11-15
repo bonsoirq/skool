@@ -6,7 +6,7 @@ import { Placeholder } from './Placeholder';
 import SelectSaveFile from './SelectSaveFile';
 import StudentsList from './students-list';
 
-class App extends Component<{}, IAppState> {
+class App extends Component<null, IAppState> {
   state = {
     preferences: PreferencesRepo.fetch(),
     connection: null,
