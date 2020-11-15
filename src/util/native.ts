@@ -27,22 +27,19 @@ export function saveFileDialog() {
 
 const typeorm = window.typeorm
 const connectionsMap: Map<string, Connection> = new Map()
-let connectionLock = false
 export async function getConnection(path: string) {
   const maybeConnection = connectionsMap.get(path)
-  while (connectionLock) {
-    continue
-  }
   if (maybeConnection != null) {
     return maybeConnection
   }
-  connectionLock = true
   const newConnection = await typeorm.createConnection({
     type: 'sqlite',
     database: path,
+    migrations: [
+      "src/generated/migration/**/*.js"
+    ],
   })
   connectionsMap.set(path, newConnection)
-  connectionLock = false
   return newConnection
 }
 

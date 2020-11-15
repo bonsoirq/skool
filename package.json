@@ -12,6 +12,7 @@
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
     "sqlite3": "^5.0.0",
+    "ts-node": "^9.0.0",
     "typeorm": "^0.2.29"
   },
   "scripts": {
@@ -20,7 +21,8 @@
     "ebuild": "rm -rf build dist && yarn build && yarn electron-builder",
     "dev": "concurrently 'yarn start' 'wait-on http://localhost:3000 && electron .'",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "migration:generate": "yarn tsc src/migration/**/*.ts --outDir src/generated/migration"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,0 +1,11 @@
+{
+   "type": "sqlite",
+   "database": "database.sqlite",
+   "logging": false,
+   "migrations": [
+      "src/generated/migration/**/*.js"
+   ],
+   "cli": {
+      "migrationsDir": "src/generated/migration"
+   }
+}

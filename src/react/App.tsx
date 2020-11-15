@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { Connection } from 'typeorm';
-import { IPreferences } from '../entities/preferences';
 import { PreferencesRepo } from '../repos/preferences-repo';
 import { getConnection } from '../util/native';
+import { AppContext, IAppState } from './AppContext';
+import { Placeholder } from './Placeholder';
 import SelectSaveFile from './SelectSaveFile';
-
-interface IAppState {
-  preferences: IPreferences,
-  connection: Connection | null
-}
+import StudentsList from './students-list';
 
 class App extends Component<{}, IAppState> {
   state = {
@@ -16,22 +12,45 @@ class App extends Component<{}, IAppState> {
     connection: null,
   }
 
-  render () {
-    if (!this.saveFileSelected) {
-      return <SelectSaveFile onSuccess={this.setDatabaseConnection} />
+  componentDidMount () {
+    if (this.saveFilePath != null) {
+      this.loadDatabase(this.saveFilePath)
     }
   }
 
-  get saveFileSelected () {
-    return this.state.preferences.saveFilePath != null
+  render () {
+    if (this.saveFilePath == null) {
+      return <SelectSaveFile onSuccess={this.setDatabaseConnection} />
+    }
+    if (this.connectionReady) {
+      return <AppContext.Provider value={this.state}>
+        <StudentsList />
+      </AppContext.Provider>
+    }
+    return <Placeholder /> // TODO: Loading screen
+  }
+
+  get saveFilePath () {
+    return this.state.preferences.saveFilePath
+  }
+
+  get connectionReady () {
+    return this.state.connection != null
   }
 
   setDatabaseConnection = (path: string) => {
     const preferences = { saveFilePath: path }
+    this.loadDatabase(preferences.saveFilePath)
     this.setState(() => ({ preferences }))
     PreferencesRepo.save(preferences)
-    getConnection(preferences.saveFilePath)
-      .then(connection => this.setState(() => ({ connection })))
+  }
+
+  loadDatabase (path: string) {
+    getConnection(path)
+      .then(async connection => {
+        await connection.runMigrations()
+        this.setState(() => ({ connection }))
+      })
   }
 }
 

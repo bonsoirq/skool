@@ -20,4 +20,8 @@ app.on('ready', () => {
   globalShortcut.register('F12', () => {
     window.webContents.openDevTools()
   })
+
+  globalShortcut.register('F5', () => {
+    window.reload()
+  })
 })
