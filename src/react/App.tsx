@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Connection } from 'typeorm';
+import { IPreferences } from '../entities/preferences';
 import { PreferencesRepo } from '../repos/preferences-repo';
 import { getConnection } from '../util/native';
 import SelectSaveFile from './SelectSaveFile';
 
-function App() {
-  const [preferences, setPreferences] = useState(PreferencesRepo.fetch())
-  const [, setDatabaseConnection] = useState<Connection | null>(null)
-  const noSaveFile = preferences.saveFilePath == null
+interface IAppState {
+  preferences: IPreferences,
+  connection: Connection | null
+}
 
-  if (preferences.saveFilePath != null) {
-    getConnection(preferences.saveFilePath)
-      .then(setDatabaseConnection)
+class App extends Component<{}, IAppState> {
+  state = {
+    preferences: PreferencesRepo.fetch(),
+    connection: null,
   }
 
-  return (
-    <>
-      {noSaveFile && <SelectSaveFile setPath={async (path: string) => {
-        const preferences = { saveFilePath: path }
-        setPreferences(preferences)
-        PreferencesRepo.save(preferences)
-        getConnection(preferences.saveFilePath)
-          .then(setDatabaseConnection)
-      }} />}
-    </>
-  );
+  render () {
+    if (!this.saveFileSelected) {
+      return <SelectSaveFile onSuccess={this.setDatabaseConnection} />
+    }
+  }
+
+  get saveFileSelected () {
+    return this.state.preferences.saveFilePath != null
+  }
+
+  setDatabaseConnection = (path: string) => {
+    const preferences = { saveFilePath: path }
+    this.setState(() => ({ preferences }))
+    PreferencesRepo.save(preferences)
+    getConnection(preferences.saveFilePath)
+      .then(connection => this.setState(() => ({ connection })))
+  }
 }
 
 export default App;

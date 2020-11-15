@@ -3,7 +3,7 @@ import { head } from '../util/list';
 import { openFileDialog, saveFileDialog } from '../util/native'
 
 interface IProps {
-  setPath(path: string): void
+  onSuccess(path: string): void
 }
 
 function SelectSaveFile(props: IProps) {
@@ -17,7 +17,7 @@ function SelectSaveFile(props: IProps) {
             .then(head)
 
           if (path != null) {
-            props.setPath(path)
+            props.onSuccess(path)
           }
         }}
       >
@@ -29,7 +29,7 @@ function SelectSaveFile(props: IProps) {
             .then(selection => selection.filePath)
 
           if (path != null) {
-            props.setPath(path)
+            props.onSuccess(path)
           }
         }}
       >
