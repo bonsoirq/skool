@@ -1,20 +1,23 @@
-interface IStudent {
-  id: string;
+import { PhoneNumber } from "../values/phone-number";
+import { UUIDv4 } from "../values/uuid";
+
+export interface IStudent {
+  id: UUIDv4;
   name: string;
   lastName: string;
-  groupId: string;
+  phoneNo: PhoneNumber;
 }
 
-export class Student implements IStudent {
-  readonly id: string;
-  readonly name: string;
-  readonly lastName: string;
-  readonly groupId: string;
-
-  constructor({ id, name, lastName, groupId }: IStudent) {
-    this.id = id;
-    this.name = name;
-    this.lastName = lastName;
-    this.groupId = groupId;
+export function Student({
+  id,
+  name,
+  lastName,
+  phoneNo,
+}: IStudent): IStudent {
+  return {
+    id,
+    name,
+    lastName,
+    phoneNo,
   }
 }

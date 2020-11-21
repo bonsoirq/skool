@@ -37,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.CreateStudents1605442268815 = void 0;
-var typeorm_1 = require("typeorm");
 var CreateStudents1605442268815 = /** @class */ (function () {
     function CreateStudents1605442268815() {
         this.TABLE_NAME = 'students';
@@ -46,31 +45,7 @@ var CreateStudents1605442268815 = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
-                            name: this.TABLE_NAME,
-                            columns: [
-                                {
-                                    name: 'id',
-                                    type: 'int',
-                                    isPrimary: true
-                                },
-                                {
-                                    name: 'name',
-                                    type: 'string',
-                                    isPrimary: true
-                                },
-                                {
-                                    name: 'lastName',
-                                    type: 'string',
-                                    isPrimary: true
-                                },
-                                {
-                                    name: 'phoneNo',
-                                    type: 'string',
-                                    isPrimary: true
-                                },
-                            ]
-                        }))];
+                    case 0: return [4 /*yield*/, queryRunner.query("\n      CREATE TABLE students (\n        id TEXT PRIMARY KEY,\n        name TEXT NOT NULL,\n        lastName TEXT NOT NULL,\n        phoneNo TEXT NOT NULL\n      );\n    ")];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -82,7 +57,7 @@ var CreateStudents1605442268815 = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.dropTable(this.TABLE_NAME)];
+                    case 0: return [4 /*yield*/, queryRunner.query("DROP TABLE students;")];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
