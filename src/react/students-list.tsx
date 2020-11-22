@@ -1,51 +1,43 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IStudent } from '../entities/student';
-import { StudentsRepo } from '../repos/students-repo';
-import { AppContext } from './AppContext';
-import NewStudent from './new-student';
+import { noop } from '../util/function';
+import { UUIDv4 } from '../values/uuid';
 
-interface IState {
+interface IProps {
   students: IStudent[],
+  removeStudent: (id: UUIDv4) => void
 }
-class StudentsList extends Component<any, IState> {
-  static contextType = AppContext
-  state: IState = {
-    students: []
-  }
-  componentDidMount () {
-    this.fetchStudents()
-  }
-  async addStudent (student: IStudent) {
-    await this._repository.add(student)
-    this.fetchStudents()
-  }
-
-  get _repository () {
-    return new StudentsRepo(this.context.connection)
-  }
-
-  fetchStudents () {
-    this._repository.all()
-      .then(students => this.setState(() => ({ students })))
-  }
-
-  render() {
-    const { students } = this.state
+export function StudentsList({ students, removeStudent }: IProps){
     return (
       <>
-        <NewStudent onCreate={x => this.addStudent(x)} />
-        <h3>List of students</h3>
-        <ol>
-          {students.map(x => <li key={x.id.toString()}>{x.name} {x.lastName} ({x.phoneNo.toString()})
-            <button onClick={async () => {
-              await this._repository.remove(x.id)
-              this.fetchStudents()
-            }}>Delete</button>
-          </li>)}
-        </ol>
+        <table>
+          <thead>
+            <tr>
+              <th>no.</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {students.map((student, i) => <tr key={student.id.toString()}>
+              <td>{i + 1}.</td>
+              <td>{student.name} {student.lastName}</td>
+              <td>{student.phoneNo.formattedString()}</td>
+              <td>
+                <button onClick={() => removeStudent(student.id)}>Delete</button>
+              </td>
+            </tr>
+            )}
+          </tbody>
+        </table>
       </>
     );
-  }
+}
+
+StudentsList.defaultProps = {
+  students: [],
+  removeStudent: noop
 }
 
 export default StudentsList;

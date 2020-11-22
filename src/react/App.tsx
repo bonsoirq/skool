@@ -4,7 +4,7 @@ import { getConnection } from '../util/native';
 import { AppContext, IAppState } from './AppContext';
 import { Placeholder } from './Placeholder';
 import SelectSaveFile from './SelectSaveFile';
-import StudentsList from './students-list';
+import StudentsListContainer from './students-list-container';
 
 class App extends Component<null, IAppState> {
   state = {
@@ -24,7 +24,7 @@ class App extends Component<null, IAppState> {
     }
     if (this.connectionReady) {
       return <AppContext.Provider value={this.state}>
-        <StudentsList />
+        <StudentsListContainer />
       </AppContext.Provider>
     }
     return <Placeholder /> // TODO: Loading screen
