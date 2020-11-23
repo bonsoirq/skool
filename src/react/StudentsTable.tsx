@@ -8,7 +8,7 @@ interface IProps {
   students: IStudent[],
   removeStudent: (id: UUIDv4) => void
 }
-export function StudentsList({ students, removeStudent }: IProps){
+export function StudentsTable({ students, removeStudent }: IProps){
     return (
       <>
         <table>
@@ -38,9 +38,9 @@ export function StudentsList({ students, removeStudent }: IProps){
     );
 }
 
-StudentsList.defaultProps = {
+StudentsTable.defaultProps = {
   students: [],
   removeStudent: noop
 }
 
-export default StudentsList;
+export default StudentsTable;

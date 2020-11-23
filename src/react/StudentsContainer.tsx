@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { IStudent } from '../entities/student';
 import { StudentsRepo } from '../repos/students-repo';
 import { AppContext } from './AppContext';
-import NewStudent from './new-student';
-import StudentsList from './students-list';
+import { NewStudent } from './NewStudent';
+import { StudentsTable } from './StudentsTable';
 
 interface IState {
   students: IStudent[],
 }
-class StudentsListContainer extends Component<any, IState> {
+export class StudentsContainer extends Component<any, IState> {
   static contextType = AppContext
   private _repository = new StudentsRepo(this.context.connection)
 
@@ -33,7 +33,7 @@ class StudentsListContainer extends Component<any, IState> {
     return (
       <>
         <NewStudent onCreate={x => this.addStudent(x)} />
-        <StudentsList
+        <StudentsTable
           students={students}
           removeStudent={async id => {
             await this._repository.remove(id)
@@ -44,5 +44,3 @@ class StudentsListContainer extends Component<any, IState> {
     );
   }
 }
-
-export default StudentsListContainer;

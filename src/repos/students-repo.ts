@@ -1,5 +1,5 @@
 import { Connection } from "typeorm";
-import { IStudent, Student } from "../entities/student";
+import { IStudent } from "../entities/student";
 import { SerializeDate } from "../serializers/date";
 import { PhoneNumber } from "../values/phone-number";
 import { UUID, UUIDv4 } from "../values/uuid";

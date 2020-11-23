@@ -1,7 +1,8 @@
-import { format, formatISO, isValid, parseISO } from "date-fns";
+import { format, isValid, parse } from "date-fns";
+const FORMAT = `yyyy-MM-dd'T'HH:mm:ss.SSS xxx`
 
-export const isISODateString = (aString: string): boolean => isValid(parseISO(aString))
-export const parseISOString = (aString: string): Date => parseISO(aString)
-export const toISOString = (aDate: Date): string => formatISO(aDate)
 export const now = (): Date => new Date()
+export const parseString = (aString: string): Date => parse(aString, FORMAT, now())
+export const isDateString = (aString: string): boolean => isValid(parseString(aString))
+export const toString = (aDate: Date): string => format(aDate, FORMAT)
 export const formatDate = (aDate: Date): string => format(aDate, 'yyyy/MM/dd HH:mm')

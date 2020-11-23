@@ -9,7 +9,8 @@ export class CreateAdmissionCards1606156984071 implements MigrationInterface {
         name TEXT NOT NULL,
         createdAt TEXT NOT NULL
       );
-
+    `)
+    await queryRunner.query(`
       CREATE TABLE AdmissionCards (
         number TEXT PRIMARY KEY,
         studentId TEXT NOT NULL,
@@ -20,9 +21,7 @@ export class CreateAdmissionCards1606156984071 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`
-      DROP TABLE AdmissionCards;
-      DROP TABLE AdvancementLevels;
-    `)
+    await queryRunner.query(`DROP TABLE AdvancementLevels;`)
+    await queryRunner.query(`DROP TABLE AdmissionCards;`)
   }
 }

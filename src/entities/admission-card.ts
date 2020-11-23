@@ -1,4 +1,4 @@
-interface IAdmissionCard {
+export interface IAdmissionCard {
   studentId: string;
   number: string;
 }

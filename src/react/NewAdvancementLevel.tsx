@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { IStudent, Student } from '../entities/student';
 import { isBlank } from '../util/string';
 import { IErrors, IValidations } from './types';
 import { PhoneNumber } from '../values/phone-number';
+import { AdvancementLevel, IAdvancementLevel } from '../entities/advancement-level';
+
 
 interface IProps {
-  onCreate: (student: IStudent) => void
+  onCreate: (student: IAdvancementLevel) => void
 }
 
 interface IState {
@@ -15,29 +16,25 @@ interface IState {
   errors: IErrors,
 }
 
-class NewStudent extends Component<IProps, IState> {
-  state = NewStudent.initialState
+class NewAdvancementLevel extends Component<IProps, IState> {
+  state = NewAdvancementLevel.initialState
 
   static get initialState () {
     return {
       values: {
         name: '',
-        lastName: '',
-        phoneNo: '',
       },
       errors: {
         name: null,
-        lastName: null,
-        phoneNo: null,
       },
     }
   }
 
   render() {
-    const { name, lastName, phoneNo } = this.state.values
+    const { name } = this.state.values
     return (
       <>
-        <h3>Add a student</h3>
+        <h3>New advancement level</h3>
         <form action="" onSubmit={e => {
           e.preventDefault()
           const errors = this.validateForm()
@@ -45,9 +42,9 @@ class NewStudent extends Component<IProps, IState> {
             if (this.hasErrors()) {
               return
             }
-            const student = Student({ name, lastName, phoneNo: new PhoneNumber(phoneNo) })
+            const student = AdvancementLevel({ name })
             this.props.onCreate(student)
-            this.setState(NewStudent.initialState)
+            this.setState(NewAdvancementLevel.initialState)
           })
         }}>
           <label>
@@ -62,33 +59,9 @@ class NewStudent extends Component<IProps, IState> {
             />
           </label>
           {this.state.errors.name}
-          <label>
-            Lastname:
-            <input
-              name="lastName"
-              type="text"
-              value={lastName}
-              onFocus={this.handleInputFocus}
-              onChange={this.handleInputChange}
-              onBlur={this.handleInputBlur}
-            />
-          </label>
-          {this.state.errors.lastName}
-          <label>
-            Phone Number:
-            <input
-              name="phoneNo"
-              type="text"
-              value={phoneNo}
-              onFocus={this.handleInputFocus}
-              onChange={this.handleInputChange}
-              onBlur={this.handleInputBlur}
-            />
-          </label>
-          {this.state.errors.phoneNo}
           <input
             type="submit"
-            value="Add a student"
+            value="Create"
             disabled={this.hasErrors()}
           />
         </form>
@@ -138,4 +111,4 @@ class NewStudent extends Component<IProps, IState> {
   }
 }
 
-export default NewStudent;
+export default NewAdvancementLevel;
