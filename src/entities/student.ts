@@ -1,23 +1,35 @@
+import { now } from "../util/date";
 import { PhoneNumber } from "../values/phone-number";
-import { UUIDv4 } from "../values/uuid";
+import { UUID, UUIDv4 } from "../values/uuid";
 
-export interface IStudent {
+export interface IStudent extends IStudentProps {
   id: UUIDv4;
   name: string;
   lastName: string;
   phoneNo: PhoneNumber;
+  createdAt: Date;
+}
+
+interface IStudentProps {
+  id?: UUIDv4;
+  name: string;
+  lastName: string;
+  phoneNo: PhoneNumber;
+  createdAt?: Date;
 }
 
 export function Student({
-  id,
+  id = UUID(),
   name,
   lastName,
   phoneNo,
-}: IStudent): IStudent {
+  createdAt = now(),
+}: IStudentProps): IStudent {
   return {
     id,
     name,
     lastName,
     phoneNo,
+    createdAt,
   }
 }

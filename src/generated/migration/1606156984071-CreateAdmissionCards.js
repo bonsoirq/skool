@@ -36,16 +36,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.CreateStudents1605442268815 = void 0;
-var CreateStudents1605442268815 = /** @class */ (function () {
-    function CreateStudents1605442268815() {
-        this.TABLE_NAME = 'students';
+exports.CreateAdmissionCards1606156984071 = void 0;
+var CreateAdmissionCards1606156984071 = /** @class */ (function () {
+    function CreateAdmissionCards1606156984071() {
     }
-    CreateStudents1605442268815.prototype.up = function (queryRunner) {
+    CreateAdmissionCards1606156984071.prototype.up = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query("\n      CREATE TABLE Students (\n        id TEXT PRIMARY KEY,\n        name TEXT NOT NULL,\n        lastName TEXT NOT NULL,\n        phoneNo TEXT NOT NULL,\n        createdAt TEXT NOT NULL\n      );\n    ")];
+                    case 0: return [4 /*yield*/, queryRunner.query("\n      CREATE TABLE AdvancementLevels (\n        id TEXT PRIMARY KEY,\n        name TEXT NOT NULL,\n        createdAt TEXT NOT NULL\n      );\n\n      CREATE TABLE AdmissionCards (\n        number TEXT PRIMARY KEY,\n        studentId TEXT NOT NULL,\n        advancementLevelId TEXT NOT NULL,\n        createdAt TEXT NOT NULL\n      );\n    ")];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -53,11 +52,11 @@ var CreateStudents1605442268815 = /** @class */ (function () {
             });
         });
     };
-    CreateStudents1605442268815.prototype.down = function (queryRunner) {
+    CreateAdmissionCards1606156984071.prototype.down = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query("DROP TABLE Students;")];
+                    case 0: return [4 /*yield*/, queryRunner.query("\n      DROP TABLE AdmissionCards;\n      DROP TABLE AdvancementLevels;\n    ")];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -65,6 +64,6 @@ var CreateStudents1605442268815 = /** @class */ (function () {
             });
         });
     };
-    return CreateStudents1605442268815;
+    return CreateAdmissionCards1606156984071;
 }());
-exports.CreateStudents1605442268815 = CreateStudents1605442268815;
+exports.CreateAdmissionCards1606156984071 = CreateAdmissionCards1606156984071;

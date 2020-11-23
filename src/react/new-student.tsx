@@ -3,7 +3,6 @@ import { IStudent, Student } from '../entities/student';
 import { isBlank } from '../util/string';
 import { IErrors, IValidations } from './types';
 import { PhoneNumber } from '../values/phone-number';
-import { UUID } from '../values/uuid';
 
 interface IProps {
   onCreate: (student: IStudent) => void
@@ -46,7 +45,7 @@ class NewStudent extends Component<IProps, IState> {
             if (this.hasErrors()) {
               return
             }
-            const student = Student({ id: UUID(), name, lastName, phoneNo: new PhoneNumber(phoneNo) })
+            const student = Student({ name, lastName, phoneNo: new PhoneNumber(phoneNo) })
             this.props.onCreate(student)
             this.setState(NewStudent.initialState)
           })

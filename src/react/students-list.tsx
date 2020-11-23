@@ -1,5 +1,6 @@
 import React from 'react';
 import { IStudent } from '../entities/student';
+import { formatDate } from '../util/date';
 import { noop } from '../util/function';
 import { UUIDv4 } from '../values/uuid';
 
@@ -16,6 +17,7 @@ export function StudentsList({ students, removeStudent }: IProps){
               <th>no.</th>
               <th>Name</th>
               <th>Phone</th>
+              <th>Registration Date</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -24,6 +26,7 @@ export function StudentsList({ students, removeStudent }: IProps){
               <td>{i + 1}.</td>
               <td>{student.name} {student.lastName}</td>
               <td>{student.phoneNo.formattedString()}</td>
+              <td>{formatDate(student.createdAt)}</td>
               <td>
                 <button onClick={() => removeStudent(student.id)}>Delete</button>
               </td>
