@@ -1,20 +1,16 @@
 import { Connection } from "typeorm";
 import { IAdvancementLevel } from "../entities/advancement-level";
+import { AdvancementLevelsRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import { UUID, UUIDv4 } from "../values/uuid";
 
-interface IAdvancementLevelRow {
-  id: string,
-  name: string,
-  createdAt: string,
-}
 export class AdvancementLevelsRepo {
   constructor(private connection: Connection) {
   }
   async all(): Promise<IAdvancementLevel[]> {
     const rows = await this.connection.query(`
       SELECT * FROM AdvancementLevels;
-    `) as IAdvancementLevelRow[]
+    `) as AdvancementLevelsRow[]
 
     return rows.map(x => ({
       id: UUID(x.id),

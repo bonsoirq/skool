@@ -1,23 +1,17 @@
 import { Connection } from "typeorm";
 import { IStudent } from "../entities/student";
+import { StudentsRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import { PhoneNumber } from "../values/phone-number";
 import { UUID, UUIDv4 } from "../values/uuid";
 
-interface IStudentRow {
-  id: string,
-  name: string,
-  lastName: string,
-  phoneNo: string,
-  createdAt: string,
-}
 export class StudentsRepo {
   constructor(private connection: Connection) {
   }
   async all(): Promise<IStudent[]> {
     const rows = await this.connection.query(`
       SELECT * FROM Students;
-    `) as IStudentRow[]
+    `) as StudentsRow[]
 
     return rows.map(x => ({
       id: UUID(x.id),
