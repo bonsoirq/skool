@@ -6,7 +6,7 @@ interface IProps {
 }
 export function Condition({ when, children }: IProps) {
   if (when) {
-    return React.Children.only(children)
+    return <>{React.Children.only(children)}</>
   }
   return null
 }

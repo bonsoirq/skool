@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { IStudent } from '../entities/student';
+import { Student } from '../entities/student';
 import { StudentsRepo } from '../repos/students-repo';
 import { AppContext } from './AppContext';
 import { NewStudent } from './NewStudent';
 import { StudentsTable } from './StudentsTable';
 
 interface IState {
-  students: IStudent[],
+  students: Student[],
 }
 export class StudentsContainer extends Component<any, IState> {
   static contextType = AppContext
@@ -18,7 +18,7 @@ export class StudentsContainer extends Component<any, IState> {
   componentDidMount () {
     this.fetchStudents()
   }
-  async addStudent (student: IStudent) {
+  async addStudent (student: Student) {
     await this._repository.add(student)
     this.fetchStudents()
   }

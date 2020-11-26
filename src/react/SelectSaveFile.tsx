@@ -6,7 +6,7 @@ interface IProps {
   onSuccess(path: string): void
 }
 
-function SelectSaveFile(props: IProps) {
+export function SelectSaveFile(props: IProps) {
   return (
     <>
       <h3>No save file detected</h3>
@@ -38,5 +38,3 @@ function SelectSaveFile(props: IProps) {
     </>
   );
 }
-
-export default SelectSaveFile;

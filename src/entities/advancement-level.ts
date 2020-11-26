@@ -1,26 +1,18 @@
 import { now } from "../util/date";
 import { UUID, UUIDv4 } from "../values/uuid";
 
-export interface IAdvancementLevel extends IAdvancementLevelProps {
-  id: UUIDv4;
-  name: string;
-  createdAt: Date;
-}
+export type AdvancementLevel = Required<AdvancementLevelProps>;
 
-interface IAdvancementLevelProps {
+type AdvancementLevelProps = {
   id?: UUIDv4;
   name: string;
   createdAt?: Date;
 }
 
-export function AdvancementLevel({
-  id = UUID(),
-  name,
-  createdAt = now(),
-}: IAdvancementLevelProps): IAdvancementLevel {
+export function buildAdvancementLevel(props: AdvancementLevelProps): AdvancementLevel {
   return {
-    id,
-    name,
-    createdAt,
+    id: UUID(),
+    createdAt: now(),
+    ...props,
   }
 }

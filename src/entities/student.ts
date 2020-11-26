@@ -2,15 +2,9 @@ import { now } from "../util/date";
 import { PhoneNumber } from "../values/phone-number";
 import { UUID, UUIDv4 } from "../values/uuid";
 
-export interface IStudent extends IStudentProps {
-  id: UUIDv4;
-  name: string;
-  lastName: string;
-  phoneNo: PhoneNumber;
-  createdAt: Date;
-}
+export type Student = Required<StudentProps>;
 
-interface IStudentProps {
+type StudentProps = {
   id?: UUIDv4;
   name: string;
   lastName: string;
@@ -18,18 +12,10 @@ interface IStudentProps {
   createdAt?: Date;
 }
 
-export function Student({
-  id = UUID(),
-  name,
-  lastName,
-  phoneNo,
-  createdAt = now(),
-}: IStudentProps): IStudent {
+export function buildStudent(props: StudentProps): Student {
   return {
-    id,
-    name,
-    lastName,
-    phoneNo,
-    createdAt,
+    id: UUID(),
+    createdAt: now(),
+    ...props,
   }
 }

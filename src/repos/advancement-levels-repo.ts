@@ -1,5 +1,5 @@
 import { Connection } from "typeorm";
-import { IAdvancementLevel } from "../entities/advancement-level";
+import { AdvancementLevel } from "../entities/advancement-level";
 import { AdvancementLevelsRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import { UUID, UUIDv4 } from "../values/uuid";
@@ -7,7 +7,7 @@ import { UUID, UUIDv4 } from "../values/uuid";
 export class AdvancementLevelsRepo {
   constructor(private connection: Connection) {
   }
-  async all(): Promise<IAdvancementLevel[]> {
+  async all(): Promise<AdvancementLevel[]> {
     const rows = await this.connection.query(`
       SELECT * FROM AdvancementLevels;
     `) as AdvancementLevelsRow[]
@@ -19,7 +19,7 @@ export class AdvancementLevelsRepo {
     }))
   }
 
-  async add(advancementLevel: IAdvancementLevel) {
+  async add(advancementLevel: AdvancementLevel) {
     const { id, name, createdAt } = advancementLevel
     await this.connection.query(`
       INSERT INTO AdvancementLevels

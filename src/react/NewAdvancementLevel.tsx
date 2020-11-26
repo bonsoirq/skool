@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { isBlank } from '../util/string';
 import { IErrors, IValidations } from './types';
 import { PhoneNumber } from '../values/phone-number';
-import { AdvancementLevel, IAdvancementLevel } from '../entities/advancement-level';
+import { AdvancementLevel, buildAdvancementLevel } from '../entities/advancement-level';
 
 
 interface IProps {
-  onCreate: (student: IAdvancementLevel) => void
+  onCreate: (student: AdvancementLevel) => void
 }
 
 interface IState {
@@ -16,7 +16,7 @@ interface IState {
   errors: IErrors,
 }
 
-class NewAdvancementLevel extends Component<IProps, IState> {
+export class NewAdvancementLevel extends Component<IProps, IState> {
   state = NewAdvancementLevel.initialState
 
   static get initialState () {
@@ -42,7 +42,7 @@ class NewAdvancementLevel extends Component<IProps, IState> {
             if (this.hasErrors()) {
               return
             }
-            const student = AdvancementLevel({ name })
+            const student = buildAdvancementLevel({ name })
             this.props.onCreate(student)
             this.setState(NewAdvancementLevel.initialState)
           })
@@ -110,5 +110,3 @@ class NewAdvancementLevel extends Component<IProps, IState> {
     phoneNo: (phoneNo: string) => PhoneNumber.isValid(phoneNo) ? null : 'Invalid phone number',
   }
 }
-
-export default NewAdvancementLevel;

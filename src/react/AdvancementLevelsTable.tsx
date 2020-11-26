@@ -1,12 +1,12 @@
 import React from 'react';
-import { IAdvancementLevel } from '../entities/advancement-level';
+import { AdvancementLevel } from '../entities/advancement-level';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
 import { UUIDv4 } from '../values/uuid';
 
 interface IProps {
-  advancementLevels: IAdvancementLevel[],
-  removeAdvancementLevel: (id: UUIDv4) => void
+  advancementLevels: AdvancementLevel[],
+  removeAdvancementLevel(id: UUIDv4): void,
 }
 export function AdvancementLevelsTable({ advancementLevels, removeAdvancementLevel }: IProps){
     return (

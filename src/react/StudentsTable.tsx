@@ -1,11 +1,11 @@
 import React from 'react';
-import { IStudent } from '../entities/student';
+import { Student } from '../entities/student';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
 import { UUIDv4 } from '../values/uuid';
 
 interface IProps {
-  students: IStudent[],
+  students: Student[],
   removeStudent: (id: UUIDv4) => void
 }
 export function StudentsTable({ students, removeStudent }: IProps){
@@ -42,5 +42,3 @@ StudentsTable.defaultProps = {
   students: [],
   removeStudent: noop
 }
-
-export default StudentsTable;

@@ -1,14 +1,20 @@
-export interface IAdmissionCard {
-  studentId: string;
+import { now } from "../util/date";
+import { UUIDv4 } from "../values/uuid";
+
+type AdmissionCardProps = {
   number: string;
+  studentId: UUIDv4;
+  advancementLevelId: UUIDv4;
+  createdAt?: Date;
 }
 
-export function AdmissionCard({
-  number,
-  studentId,
-}: IAdmissionCard): IAdmissionCard {
+export type AdmissionCard = Required<AdmissionCardProps>;
+
+export function buildAdmissionCard(props: AdmissionCardProps): AdmissionCard {
   return {
-    number,
-    studentId,
+    createdAt: now(),
+    ...props,
   }
 }
+
+export const NUMBER_DIGIT_COUNT = 8

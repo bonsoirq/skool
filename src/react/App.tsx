@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { PreferencesRepo } from '../repos/preferences-repo';
 import { getConnection } from '../util/native';
-import AdvancementLevelsContainer from './AdvancementLevelsContainer';
+import { AdvancementLevelsContainer } from './AdvancementLevelsContainer';
+import { AdmissionCardsContainer } from './AdmissionCardsContainer';
 import { AppContext, IAppState } from './AppContext';
 import { Placeholder } from './Placeholder';
-import SelectSaveFile from './SelectSaveFile';
+import { SelectSaveFile } from './SelectSaveFile';
 import { StudentsContainer } from './StudentsContainer';
 
 class App extends Component<null, IAppState> {
@@ -25,6 +26,7 @@ class App extends Component<null, IAppState> {
     }
     if (this.connectionReady) {
       return <AppContext.Provider value={this.state}>
+        <AdmissionCardsContainer />
         <AdvancementLevelsContainer />
         <StudentsContainer />
       </AppContext.Provider>

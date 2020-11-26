@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { IStudent, Student } from '../entities/student';
+import { Student, buildStudent } from '../entities/student';
 import { isBlank } from '../util/string';
 import { IErrors, IValidations } from './types';
 import { PhoneNumber } from '../values/phone-number';
 
 
 interface IProps {
-  onCreate: (student: IStudent) => void
+  onCreate: (student: Student) => void
 }
 
 interface IState {
@@ -46,7 +46,7 @@ export class NewStudent extends Component<IProps, IState> {
             if (this.hasErrors()) {
               return
             }
-            const student = Student({ name, lastName, phoneNo: new PhoneNumber(phoneNo) })
+            const student = buildStudent({ name, lastName, phoneNo: new PhoneNumber(phoneNo) })
             this.props.onCreate(student)
             this.setState(NewStudent.initialState)
           })
