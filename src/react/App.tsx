@@ -8,6 +8,8 @@ import { Placeholder } from './Placeholder';
 import { SelectSaveFile } from './SelectSaveFile';
 import { StudentsContainer } from './StudentsContainer';
 import { CoursesContainer } from './CoursesContainer';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { Navigation } from './Navigation';
 
 class App extends Component<null, IAppState> {
   state = {
@@ -27,10 +29,23 @@ class App extends Component<null, IAppState> {
     }
     if (this.connectionReady) {
       return <AppContext.Provider value={this.state}>
-        <CoursesContainer />
-        <AdmissionCardsContainer />
-        <AdvancementLevelsContainer />
-        <StudentsContainer />
+        <Router>
+          <Navigation />
+          <Switch>
+            <Route exact path='/'>
+              <CoursesContainer />
+            </Route>
+            <Route exact path='/AdmissionCards'>
+              <AdmissionCardsContainer />
+            </Route>
+            <Route exact path='/AdvancementLevels'>
+              <AdvancementLevelsContainer />
+            </Route>
+            <Route exact path='/Students'>
+              <StudentsContainer />
+            </Route>
+          </Switch>
+        </Router>
       </AppContext.Provider>
     }
     return <Placeholder /> // TODO: Loading screen

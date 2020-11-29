@@ -8,7 +8,6 @@ import { AdmissionCardsRepo } from '../repos/admission-cards-repo';
 import { StudentAutocomplete } from './StudentAutocomplete';
 import { Form } from './components/Form';
 import { isNullish } from '../util/function';
-import { validate } from 'uuid';
 
 interface IProps {
   onCreate: (admisionCard: AdmissionCard) => void
