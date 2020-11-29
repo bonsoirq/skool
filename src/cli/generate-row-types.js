@@ -6,6 +6,7 @@ const fs = require('fs')
 const tables = [
   'AdmissionCards',
   'AdvancementLevels',
+  'Courses',
   'Students',
 ];
 
@@ -19,8 +20,8 @@ const compareBy = (fn) => {
 
 const typeTemplate = (tableName, columns) => {
   return `export type ${tableName}Row = {\n` +
-  `${mapColumns(columns)}\n` +
-  `}\n`
+    `${mapColumns(columns)}\n` +
+    `}\n`
 }
 const mapColumns = (columns) => columns.sort(compareBy(x => x.name)).map(columnTemplate).join('\n')
 const columnTemplate = (column) => `  ${column.name}: ${mapColumnType(column.type)};`
@@ -45,5 +46,5 @@ const mapColumnType = (type) => {
 
   const typeDefinitions = tableMetadata.map(({ table, columns }) => typeTemplate(table, columns)).join('\n')
 
-  fs.writeFile('./src/generated/row-types.ts', typeDefinitions, err => err && console.error(err) )
+  fs.writeFile('./src/generated/row-types.ts', typeDefinitions, err => err && console.error(err))
 })();

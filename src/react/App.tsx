@@ -7,6 +7,7 @@ import { AppContext, IAppState } from './AppContext';
 import { Placeholder } from './Placeholder';
 import { SelectSaveFile } from './SelectSaveFile';
 import { StudentsContainer } from './StudentsContainer';
+import { CoursesContainer } from './CoursesContainer';
 
 class App extends Component<null, IAppState> {
   state = {
@@ -26,6 +27,7 @@ class App extends Component<null, IAppState> {
     }
     if (this.connectionReady) {
       return <AppContext.Provider value={this.state}>
+        <CoursesContainer />
         <AdmissionCardsContainer />
         <AdvancementLevelsContainer />
         <StudentsContainer />

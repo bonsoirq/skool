@@ -1,5 +1,5 @@
 import React from 'react';
-import { head } from '../util/list';
+import { head } from '../util/array';
 import { openFileDialog, saveFileDialog } from '../util/native'
 
 interface IProps {

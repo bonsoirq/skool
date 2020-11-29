@@ -4,7 +4,6 @@ import { UUIDv4 } from "../values/uuid";
 type AdmissionCardProps = {
   number: string;
   studentId: UUIDv4;
-  advancementLevelId: UUIDv4;
   createdAt?: Date;
 }
 

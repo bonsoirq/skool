@@ -122,9 +122,6 @@ export class Form<TValues> extends Component<IProps<TValues>, IState> {
     const validationFunction = validations[name]
     if (isNullish(validationFunction)) return null
     const result = validationFunction(value)
-    if (result instanceof Promise) {
-      return await result
-    }
-    return result
+    return await result
   }
 }

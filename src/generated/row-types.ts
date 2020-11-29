@@ -1,11 +1,17 @@
 export type AdmissionCardsRow = {
-  advancementLevelId: string;
   createdAt: string;
   number: string;
   studentId: string;
 }
 
 export type AdvancementLevelsRow = {
+  courseId: string;
+  createdAt: string;
+  id: string;
+  name: string;
+}
+
+export type CoursesRow = {
   createdAt: string;
   id: string;
   name: string;

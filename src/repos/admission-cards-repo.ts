@@ -2,6 +2,7 @@ import { Connection } from "typeorm";
 import { AdmissionCard } from "../entities/admission-card";
 import { AdmissionCardsRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
+import { head } from "../util/array";
 import { UUID } from "../values/uuid";
 
 export class AdmissionCardsRepo {
@@ -12,21 +13,32 @@ export class AdmissionCardsRepo {
       SELECT * FROM AdmissionCards;
     `) as AdmissionCardsRow[]
 
-    return rows.map(x => ({
-      number: x.number,
-      studentId: UUID(x.studentId),
-      advancementLevelId: UUID(x.advancementLevelId),
-      createdAt: SerializeDate.toObject(x.createdAt),
-    }))
+    return rows.map(this._mapRow)
+  }
+
+  async findByNumber(number: string) {
+    const rows = await this.connection.query(`
+      SELECT * FROM AdmissionCards WHERE number = ?;
+    `, [number]) as AdmissionCardsRow[]
+
+    return head(rows.map(this._mapRow))
+  }
+
+  _mapRow(row: AdmissionCardsRow): AdmissionCard {
+    return {
+      number: row.number,
+      studentId: UUID(row.studentId),
+      createdAt: SerializeDate.toObject(row.createdAt),
+    }
   }
 
   async add(admissionCard: AdmissionCard) {
-    const { number, studentId, advancementLevelId, createdAt } = admissionCard
+    const { number, studentId, createdAt } = admissionCard
     await this.connection.query(`
       INSERT INTO AdmissionCards
-        (number, studentId, advancementLevelId, createdAt)
+        (number, studentId, createdAt)
       VALUES
-        (?, ?, ?, ?);
-    `, [number, studentId.toString(), advancementLevelId.toString(), SerializeDate.toDatabase(createdAt)])
+        (?, ?, ?);
+    `, [number, studentId.toString(), SerializeDate.toDatabase(createdAt)])
   }
 }

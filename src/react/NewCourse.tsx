@@ -1,26 +1,18 @@
 import React, { Component } from 'react';
 import { isBlank } from '../util/string';
-import { AdvancementLevel, buildAdvancementLevel } from '../entities/advancement-level';
+import { Course, buildCourse } from '../entities/course';
 import { Form } from './components/Form';
-import { CourseSelect } from './CourseSelect';
-import { Course } from '../entities/course';
 
 
 interface IProps {
-  onCreate: (student: AdvancementLevel) => void
+  onCreate: (student: Course) => void
 }
 
 interface IState {
-  course: Course | null;
 }
 
-export class NewAdvancementLevel extends Component<IProps, IState> {
-  state: IState = {
-    course: null
-  }
-
+export class NewCourse extends Component<IProps, IState> {
   render() {
-    const { course } = this.state
     return <Form
       initialValues={{ name: '' }}
       validations={this.validations}
@@ -36,15 +28,13 @@ export class NewAdvancementLevel extends Component<IProps, IState> {
         handleSubmit,
       }) =>
         <>
-          <h3>New advancement level</h3>
+          <h3>New course</h3>
           <form action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { name } = values
-              if (course != null) {
-                const advancementLevel = buildAdvancementLevel({ name, courseId: course.id })
-                this.props.onCreate(advancementLevel)
-                restoreInitialValues()
-              }
+              const student = buildCourse({ name })
+              this.props.onCreate(student)
+              restoreInitialValues()
             })
           }}>
             <label>
@@ -59,10 +49,6 @@ export class NewAdvancementLevel extends Component<IProps, IState> {
               />
             </label>
             {errors.name}
-            Course:
-            <CourseSelect
-              onSelect={course => this.setState(() => ({ course }))}
-            />
             <input
               type="submit"
               value="Create"

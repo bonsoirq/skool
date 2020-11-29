@@ -15,18 +15,19 @@ export class AdvancementLevelsRepo {
     return rows.map(x => ({
       id: UUID(x.id),
       name: x.name,
+      courseId: UUID(x.courseId),
       createdAt: SerializeDate.toObject(x.createdAt)
     }))
   }
 
   async add(advancementLevel: AdvancementLevel) {
-    const { id, name, createdAt } = advancementLevel
+    const { id, name, courseId, createdAt } = advancementLevel
     await this.connection.query(`
       INSERT INTO AdvancementLevels
-        (id, name, createdAt)
+        (id, name, courseId, createdAt)
       VALUES
-        (?, ?, ?);
-    `, [id.toString(), name, SerializeDate.toDatabase(createdAt)])
+        (?, ?, ?, ?);
+    `, [id.toString(), name, courseId.toString(), SerializeDate.toDatabase(createdAt)])
   }
 
   async remove(id: UUIDv4) {

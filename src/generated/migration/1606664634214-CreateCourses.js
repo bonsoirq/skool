@@ -36,40 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.CreateAdmissionCards1606156984071 = void 0;
-var CreateAdmissionCards1606156984071 = /** @class */ (function () {
-    function CreateAdmissionCards1606156984071() {
+exports.CreateCourses1606664634214 = void 0;
+var CreateCourses1606664634214 = /** @class */ (function () {
+    function CreateCourses1606664634214() {
     }
-    CreateAdmissionCards1606156984071.prototype.up = function (queryRunner) {
+    CreateCourses1606664634214.prototype.up = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query("\n      CREATE TABLE AdvancementLevels (\n        id TEXT PRIMARY KEY,\n        name TEXT NOT NULL,\n        courseId TEXT NOT NULL,\n        createdAt TEXT NOT NULL\n      );\n    ")];
+                    case 0: return [4 /*yield*/, queryRunner.query("\n          CREATE TABLE Courses (\n            id TEXT PRIMARY KEY,\n            name TEXT NOT NULL,\n            createdAt TEXT NOT NULL\n          );\n        ")];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, queryRunner.query("\n      CREATE TABLE AdmissionCards (\n        number TEXT PRIMARY KEY,\n        studentId TEXT NOT NULL,\n        createdAt TEXT NOT NULL\n      );\n    ")];
-                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    CreateAdmissionCards1606156984071.prototype.down = function (queryRunner) {
+    CreateCourses1606664634214.prototype.down = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query("DROP TABLE AdvancementLevels;")];
+                    case 0: return [4 /*yield*/, queryRunner.query("DROP TABLE Courses;")];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, queryRunner.query("DROP TABLE AdmissionCards;")];
-                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    return CreateAdmissionCards1606156984071;
+    return CreateCourses1606664634214;
 }());
-exports.CreateAdmissionCards1606156984071 = CreateAdmissionCards1606156984071;
+exports.CreateCourses1606664634214 = CreateCourses1606664634214;
