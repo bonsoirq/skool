@@ -1,11 +1,6 @@
 import { Connection } from "typeorm";
 import { AdmissionCardAggregate } from "../aggregates/admission-card-aggregate";
-import { AdmissionCard } from "../entities/admission-card";
-import { AdmissionCardsRow } from "../generated/row-types";
-import { SerializeDate } from "../serializers/date";
 import { head } from "../util/array";
-import { isNullish } from "../util/function";
-import { UUID } from "../values/uuid";
 import { AdmissionCardsRepo } from "./admission-cards-repo";
 import { StudentsRepo } from "./students-repo";
 

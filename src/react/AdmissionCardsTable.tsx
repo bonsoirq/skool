@@ -1,6 +1,5 @@
 import React from 'react';
 import { AdmissionCardAggregate } from '../aggregates/admission-card-aggregate';
-import { AdmissionCard } from '../entities/admission-card';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
 import { StudentName } from './StudentName';
