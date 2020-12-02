@@ -1,12 +1,14 @@
 import React from 'react';
+import { AdmissionCardAggregate } from '../aggregates/admission-card-aggregate';
 import { AdmissionCard } from '../entities/admission-card';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
+import { StudentName } from './StudentName';
 
 interface IProps {
-  admissionCards: AdmissionCard[],
+  admissionCardAggregates: AdmissionCardAggregate[],
 }
-export function AdmissionCardsTable({ admissionCards }: IProps){
+export function AdmissionCardsTable({ admissionCardAggregates }: IProps){
     return (
       <>
         <table>
@@ -19,11 +21,11 @@ export function AdmissionCardsTable({ admissionCards }: IProps){
             </tr>
           </thead>
           <tbody>
-            {admissionCards.map((admissionCard, i) => <tr key={admissionCard.number}>
+            {admissionCardAggregates.map((x, i) => <tr key={x.number}>
               <td>{i + 1}.</td>
-              <td>{admissionCard.number}</td>
-              <td>{admissionCard.studentId.toString()}</td>
-              <td>{formatDate(admissionCard.createdAt)}</td>
+              <td>{x.number}</td>
+              <td><StudentName student={x.student} /></td>
+              <td>{formatDate(x.createdAt)}</td>
             </tr>
             )}
           </tbody>

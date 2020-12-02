@@ -10,6 +10,7 @@ import { StudentsContainer } from './StudentsContainer';
 import { CoursesContainer } from './CoursesContainer';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { Navigation } from './Navigation';
+import { isEmptyArray } from '../util/array';
 
 class App extends Component<null, IAppState> {
   state = {
@@ -67,9 +68,19 @@ class App extends Component<null, IAppState> {
   }
 
   loadDatabase(path: string) {
+    console.debug(`DB|Loading file: ${path}`)
     getConnection(path)
       .then(async connection => {
-        await connection.runMigrations()
+        console.debug(`DB|Connection obtained`)
+        const migrations = await connection.runMigrations()
+        if (isEmptyArray(migrations)) {
+          console.debug('DB|No pending migrations found')
+        } else {
+          console.debug('DB|Performed migrations')
+          for (const migration of migrations) {
+            console.debug(`DB|Migration|${migration.name}`)
+          }
+        }
         this.setState(() => ({ connection }))
       })
   }

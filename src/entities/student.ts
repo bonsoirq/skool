@@ -19,3 +19,5 @@ export function buildStudent(props: StudentProps): Student {
     ...props,
   }
 }
+
+export const fullName = (student: Student) => `${student.name} ${student.lastName}`

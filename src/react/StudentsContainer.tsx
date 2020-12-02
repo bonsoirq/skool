@@ -24,7 +24,7 @@ export class StudentsContainer extends Component<any, IState> {
   }
 
   fetchStudents () {
-    this._repository.all()
+    this._repository.find()
       .then(students => this.setState(() => ({ students })))
   }
 

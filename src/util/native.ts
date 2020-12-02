@@ -3,6 +3,7 @@ declare global {
   interface Window {
     electron: IElectronBindings
     typeorm: typeof TypeOrm
+    migrationsPath: string
   }
 }
 
@@ -25,18 +26,19 @@ export function saveFileDialog() {
   return electron.remote.dialog.showSaveDialog()
 }
 
-const typeorm = window.typeorm
 const connectionsMap: Map<string, Connection> = new Map()
 export async function getConnection(path: string) {
+  const { typeorm, migrationsPath } = window
   const maybeConnection = connectionsMap.get(path)
   if (maybeConnection != null) {
     return maybeConnection
   }
+  console.debug(`DB|Loading migration files from: ${migrationsPath}`)
   const newConnection = await typeorm.createConnection({
     type: 'sqlite',
     database: path,
     migrations: [
-      "src/generated/migration/**/*.js"
+      migrationsPath
     ],
   })
   connectionsMap.set(path, newConnection)

@@ -13,6 +13,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "sql-bricks": "^2.0.5",
     "sqlite3": "^5.0.0",
     "ts-node": "^9.0.0",
     "typeorm": "^0.2.29",
@@ -57,7 +58,8 @@
     "files": [
       "build/**/*",
       "electron/**/*",
-      "node_modules/**/*"
+      "node_modules/**/*",
+      "src/generated/migration/**/*"
     ],
     "extends": null
   }

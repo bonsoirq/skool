@@ -4,14 +4,16 @@ import { AdmissionCardsRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import { head } from "../util/array";
 import { UUID } from "../values/uuid";
+import sql from '../util/sqlite'
 
 export class AdmissionCardsRepo {
+  tableName = 'AdmissionCards'
   constructor(private connection: Connection) {
   }
-  async all(): Promise<AdmissionCard[]> {
-    const rows = await this.connection.query(`
-      SELECT * FROM AdmissionCards;
-    `) as AdmissionCardsRow[]
+  async find(criteria = {}): Promise<AdmissionCard[]> {
+    const { text, values } = sql
+      .select().from(this.tableName).where(criteria).toParams()
+    const rows = await this.connection.query(text, values) as AdmissionCardsRow[]
 
     return rows.map(this._mapRow)
   }
