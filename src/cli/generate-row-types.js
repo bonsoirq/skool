@@ -6,7 +6,11 @@ const fs = require('fs')
 const tables = [
   'AdmissionCards',
   'AdvancementLevels',
+  'CourseProgress',
   'Courses',
+  'Groups',
+  'Lessons',
+  'Presence',
   'Students',
 ];
 
