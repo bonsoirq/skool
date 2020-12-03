@@ -3,12 +3,12 @@ import { Course } from "../entities/course";
 
 export interface ICourseContext {
   courses: Course[],
-  activeCourse: Course | null
+  course: Course | null
 }
 
 export const CourseContext = React.createContext<ICourseContext>({
   courses: [],
-  activeCourse: null,
+  course: null,
 })
 
 CourseContext.displayName = 'CourseContext'

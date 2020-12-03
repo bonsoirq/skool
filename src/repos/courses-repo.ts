@@ -19,8 +19,8 @@ export class CoursesRepo {
     }))
   }
 
-  async add(advancementLevel: Course) {
-    const { id, name, createdAt } = advancementLevel
+  async add(course: Course) {
+    const { id, name, createdAt } = course
     await this.connection.query(`
       INSERT INTO Courses
         (id, name, createdAt)

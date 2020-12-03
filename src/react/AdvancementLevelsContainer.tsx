@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { AdvancementLevel } from '../entities/advancement-level';
+import { Course } from '../entities/course';
 import { AdvancementLevelsRepo } from '../repos/advancement-levels-repo';
 import { AdvancementLevelsTable } from './AdvancementLevelsTable';
 import { AppContext } from './AppContext';
 import { NewAdvancementLevel } from './NewAdvancementLevel';
 
+interface IProps {
+  course: Course,
+}
 interface IState {
   advancementLevels: AdvancementLevel[],
 }
-export class AdvancementLevelsContainer extends Component<any, IState> {
+export class AdvancementLevelsContainer extends Component<IProps, IState> {
   static contextType = AppContext
   private _repository = new AdvancementLevelsRepo(this.context.connection)
 
@@ -18,21 +22,26 @@ export class AdvancementLevelsContainer extends Component<any, IState> {
   componentDidMount() {
     this.fetchAdvancementLevels()
   }
+  componentDidUpdate() {
+    this.fetchAdvancementLevels()
+  }
   async addAdvancementLevel(advancementLevel: AdvancementLevel) {
     await this._repository.add(advancementLevel)
     this.fetchAdvancementLevels()
   }
 
   fetchAdvancementLevels() {
-    this._repository.all()
+    const { course } = this.props
+    this._repository.find({ courseId: course.id.toString() })
       .then(advancementLevels => this.setState(() => ({ advancementLevels })))
   }
 
   render() {
     const { advancementLevels } = this.state
+    const { course } = this.props
     return (
       <>
-        <NewAdvancementLevel onCreate={x => this.addAdvancementLevel(x)} />
+        <NewAdvancementLevel course={course} onCreate={x => this.addAdvancementLevel(x)} />
         <AdvancementLevelsTable
           advancementLevels={advancementLevels}
           removeAdvancementLevel={async id => {
