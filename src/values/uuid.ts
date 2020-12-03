@@ -13,6 +13,10 @@ export class UUIDv4 {
     return this._value
   }
 
+  equals(other: UUIDv4): boolean {
+    return this.toString() === other.toString()
+  }
+
   static isValid(value: string): boolean {
     return validate(value)
   }

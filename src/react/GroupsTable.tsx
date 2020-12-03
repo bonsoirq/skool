@@ -1,11 +1,11 @@
 import React from 'react';
-import { Group } from '../entities/group';
+import { GroupAggregate } from '../aggregates/group-aggregate';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
 import { UUIDv4 } from '../values/uuid';
 
 interface IProps {
-  groups: Group[],
+  groups: GroupAggregate[],
   removeGroup(id: UUIDv4): void,
 }
 export function GroupsTable({ groups, removeGroup }: IProps){
@@ -25,7 +25,7 @@ export function GroupsTable({ groups, removeGroup }: IProps){
             {groups.map((group, i) => <tr key={group.id.toString()}>
               <td>{i + 1}.</td>
               <td>{group.name}</td>
-              <td>{group.advancementLevelId.toString()}</td>
+              <td>{group.advancementLevel.name}</td>
               <td>{formatDate(group.createdAt)}</td>
               <td>
                 <button onClick={() => removeGroup(group.id)}>Delete</button>
