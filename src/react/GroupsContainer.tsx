@@ -6,12 +6,17 @@ import { AppContext } from './AppContext';
 import { NewGroup } from './NewGroup';
 import { GroupAggregate } from '../aggregates/group-aggregate';
 import { GroupAggregatesRepo } from '../repos/group-aggregates-repo';
+import { Course } from '../entities/course';
 
 interface IState {
   groups: GroupAggregate[],
 }
 
-export class GroupsContainer extends Component<any, IState> {
+interface IProps {
+  course: Course,
+}
+
+export class GroupsContainer extends Component<IProps, IState> {
   static contextType = AppContext
   private _repository = new GroupsRepo(this.context.connection)
   private _aggregateRepository = new GroupAggregatesRepo(this.context.connection)
@@ -22,13 +27,20 @@ export class GroupsContainer extends Component<any, IState> {
   componentDidMount() {
     this.fetchGroups()
   }
+
+  componentDidUpdate(prevProps: IProps) {
+    if (prevProps.course !== this.props.course) {
+      this.fetchGroups()
+    }
+  }
+
   async addGroup(group: Group) {
     await this._repository.add(group)
     this.fetchGroups()
   }
 
   fetchGroups() {
-    this._aggregateRepository.find()
+    this._aggregateRepository.find({ courseId: this.props.course.id.toString() })
       .then(groups => this.setState(() => ({ groups })))
   }
 

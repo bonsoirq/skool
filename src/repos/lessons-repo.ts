@@ -1,36 +1,38 @@
 import { Connection } from "typeorm";
-import { Group } from "../entities/group";
-import { GroupsRow } from "../generated/row-types";
+import { Lesson } from "../entities/lesson";
+import { LessonsRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import sql from "../util/sqlite";
 import { UUID, UUIDv4 } from "../values/uuid";
 
-export class GroupsRepo {
-  tableName = 'Groups'
+export class LessonsRepo {
+  tableName = 'Lessons'
   constructor(private connection: Connection) {
   }
-  async find(criteria = {}): Promise<Group[]> {
+  async find(criteria = {}): Promise<Lesson[]> {
     const { text, values } = sql
-      .select('Groups.*').from(this.tableName)
+      .select('Lessons.*').from(this.tableName)
       .leftJoin('AdvancementLevels')
-      .on('AdvancementLevels.id', 'Groups.advancementLevelId')
+      .on('AdvancementLevels.id', 'Lessons.advancementLevelId')
       .where(criteria).toParams()
-    const rows = await this.connection.query(text, values) as GroupsRow[]
+    const rows = await this.connection.query(text, values) as LessonsRow[]
 
     return rows.map(x => ({
       id: UUID(x.id),
-      name: x.name,
+      topic: x.topic,
       advancementLevelId: UUID(x.advancementLevelId),
+      groupId: UUID(x.groupId),
       createdAt: SerializeDate.toObject(x.createdAt),
     }))
   }
 
-  async add(group: Group) {
-    const { id, advancementLevelId, name, createdAt } = group
-    const row: GroupsRow = {
+  async add(lesson: Lesson) {
+    const { id, advancementLevelId, groupId, topic, createdAt } = lesson
+    const row: LessonsRow = {
       id: id.toString(),
-      name,
+      topic,
       advancementLevelId: advancementLevelId.toString(),
+      groupId: groupId.toString(),
       createdAt: SerializeDate.toDatabase(createdAt),
     }
     const { text, values } = sql

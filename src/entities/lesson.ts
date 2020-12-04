@@ -1,23 +1,20 @@
-interface ILesson {
-  id: string;
+import { now } from "../util/date";
+import { UUID, UUIDv4 } from "../values/uuid";
+
+export type Lesson = Required<LessonProps>
+
+type LessonProps = {
+  id?: UUIDv4;
   topic: string;
-  startsAt: Date;
-  endsAt: Date;
-  teacherId: string;
+  groupId: UUIDv4;
+  advancementLevelId: UUIDv4;
+  createdAt?: Date;
 }
 
-export class Lesson implements ILesson {
-  readonly id: string;
-  public topic: string;
-  public startsAt: Date;
-  public endsAt: Date;
-  public teacherId: string;
-
-  constructor({ id, topic, startsAt, endsAt, teacherId }: ILesson) {
-    this.id = id;
-    this.topic = topic;
-    this.startsAt = startsAt;
-    this.endsAt = endsAt;
-    this.teacherId = teacherId;
+export function buildLesson(props: LessonProps): Lesson {
+  return {
+    id: UUID(),
+    createdAt: now(),
+    ...props,
   }
 }

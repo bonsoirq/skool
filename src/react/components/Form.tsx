@@ -18,6 +18,7 @@ type RenderingValues = {
   handleInputFocus: ChangeEventHandler<HTMLInputElement>,
   handleSubmit: (event: FormEvent, successHandler: () => void) => void,
   restoreInitialValues: () => void
+  setValues: (updater: (prevValues: Values) => Values) => void
 }
 
 type ValidationResult = string | null
@@ -56,6 +57,7 @@ export class Form<TValues> extends Component<IProps<TValues>, IState> {
       validate,
       restoreInitialValues,
       handleSubmit,
+      setValues,
     } = this
     return this.props.children({
       values: {...values},
@@ -67,6 +69,7 @@ export class Form<TValues> extends Component<IProps<TValues>, IState> {
       isValid: isEmptyObject(this.state.errors),
       validate,
       restoreInitialValues,
+      setValues,
     })
   }
 
@@ -105,6 +108,8 @@ export class Form<TValues> extends Component<IProps<TValues>, IState> {
     this.setState(() => ({ errors }))
   }
   restoreInitialValues = () => this.setState(() => ({ values: {...this.props.initialValues}}))
+
+  setValues = (updater: (prevValues: Values) => Values) => this.setState(s => ({ values: {...s.values, ...updater(s.values)}}))
 
   private _getErrors = async () => {
     const errors: Errors = {}

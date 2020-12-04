@@ -14,6 +14,7 @@ import { isEmptyArray } from '../util/array';
 import { GroupsContainer } from './GroupsContainer';
 import { CourseProvider } from './CourseProvider';
 import { CourseContext } from './CourseContext';
+import { LessonsContainer } from './LessonsContainer';
 
 class App extends Component<null, IAppState> {
   state = {
@@ -42,20 +43,23 @@ class App extends Component<null, IAppState> {
             <Route exact path='/AdmissionCards'>
               <AdmissionCardsContainer />
             </Route>
+            <Route exact path='/Students'>
+              <StudentsContainer />
+            </Route>
             <CourseProvider>
               <CourseContext.Consumer>
                 {({ course }) => <>
                   <Route exact path='/AdvancementLevels'>
                     <AdvancementLevelsContainer course={course!} />
                   </Route>
+                  <Route exact path='/Groups'>
+                    <GroupsContainer course={course!} />
+                  </Route>
+                  <Route exact path='/Lessons'>
+                    <LessonsContainer course={course!} />
+                  </Route>
                 </>}
               </CourseContext.Consumer>
-              <Route exact path='/Students'>
-                <StudentsContainer />
-              </Route>
-              <Route exact path='/Groups'>
-                <GroupsContainer />
-              </Route>
             </CourseProvider>
           </Switch>
         </Router>
