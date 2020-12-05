@@ -1,13 +1,13 @@
 import React from 'react';
-import { AdmissionCardAggregate } from '../aggregates/admission-card-aggregate';
+import { AdmissionCardsViewRow } from '../generated/row-types';
+import { SerializeDate } from '../serializers/date';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
-import { StudentName } from './StudentName';
 
 interface IProps {
-  admissionCardAggregates: AdmissionCardAggregate[],
+  viewRows: AdmissionCardsViewRow[],
 }
-export function AdmissionCardsTable({ admissionCardAggregates }: IProps){
+export function AdmissionCardsTable({ viewRows }: IProps){
     return (
       <>
         <table>
@@ -20,11 +20,11 @@ export function AdmissionCardsTable({ admissionCardAggregates }: IProps){
             </tr>
           </thead>
           <tbody>
-            {admissionCardAggregates.map((x, i) => <tr key={x.number}>
+            {viewRows.map((x, i) => <tr key={x.number}>
               <td>{i + 1}.</td>
               <td>{x.number}</td>
-              <td><StudentName student={x.student} /></td>
-              <td>{formatDate(x.createdAt)}</td>
+              <td>{x.studentName} {x.studentLastName}</td>
+              <td>{formatDate(SerializeDate.toObject(x.createdAt))}</td>
             </tr>
             )}
           </tbody>
@@ -34,6 +34,6 @@ export function AdmissionCardsTable({ admissionCardAggregates }: IProps){
 }
 
 AdmissionCardsTable.defaultProps = {
-  admissionCards: [],
+  viewRows: [],
   removeStudent: noop
 }

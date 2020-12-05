@@ -13,6 +13,7 @@ const tables = [
   'Groups',
   'GroupsView',
   'Lessons',
+  'LessonsView',
   'Presence',
   'PresenceView',
   'Students',

@@ -1,6 +1,6 @@
 import { Connection } from "typeorm";
 import { Group } from "../entities/group";
-import { GroupsRow } from "../generated/row-types";
+import { GroupsRow, GroupsViewRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import sql from "../util/sqlite";
 import { UUID, UUIDv4 } from "../values/uuid";
@@ -11,9 +11,7 @@ export class GroupsRepo {
   }
   async find(criteria = {}): Promise<Group[]> {
     const { text, values } = sql
-      .select('Groups.*').from(this.tableName)
-      .leftJoin('AdvancementLevels')
-      .on('AdvancementLevels.id', 'Groups.advancementLevelId')
+      .select().from(this.tableName)
       .where(criteria).toParams()
     const rows = await this.connection.query(text, values) as GroupsRow[]
 
@@ -23,6 +21,12 @@ export class GroupsRepo {
       advancementLevelId: UUID(x.advancementLevelId),
       createdAt: SerializeDate.toObject(x.createdAt),
     }))
+  }
+
+  async findView(criteria = {}): Promise<GroupsViewRow[]> {
+    const { text, values } = sql
+      .select().from(`${this.tableName}View`).where(criteria).toParams()
+    return await this.connection.query(text, values) as GroupsViewRow[]
   }
 
   async add(group: Group) {

@@ -1,6 +1,6 @@
 import { Connection } from "typeorm";
 import { Lesson } from "../entities/lesson";
-import { LessonsRow } from "../generated/row-types";
+import { LessonsRow, LessonsViewRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import sql from "../util/sqlite";
 import { UUID, UUIDv4 } from "../values/uuid";
@@ -11,9 +11,7 @@ export class LessonsRepo {
   }
   async find(criteria = {}): Promise<Lesson[]> {
     const { text, values } = sql
-      .select('Lessons.*').from(this.tableName)
-      .leftJoin('AdvancementLevels')
-      .on('AdvancementLevels.id', 'Lessons.advancementLevelId')
+      .select().from(this.tableName)
       .where(criteria).toParams()
     const rows = await this.connection.query(text, values) as LessonsRow[]
 
@@ -24,6 +22,13 @@ export class LessonsRepo {
       groupId: UUID(x.groupId),
       createdAt: SerializeDate.toObject(x.createdAt),
     }))
+  }
+
+  async findView(criteria = {}): Promise<LessonsViewRow[]> {
+    const { text, values } = sql
+      .select().from(`${this.tableName}View`).where(criteria)
+      .orderBy('topic').toParams()
+    return await this.connection.query(text, values) as LessonsViewRow[]
   }
 
   async add(lesson: Lesson) {

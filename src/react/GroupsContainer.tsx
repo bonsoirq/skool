@@ -7,9 +7,10 @@ import { NewGroup } from './NewGroup';
 import { GroupAggregate } from '../aggregates/group-aggregate';
 import { GroupAggregatesRepo } from '../repos/group-aggregates-repo';
 import { Course } from '../entities/course';
+import { GroupsViewRow } from '../generated/row-types';
 
 interface IState {
-  groups: GroupAggregate[],
+  viewRows: GroupsViewRow[],
 }
 
 interface IProps {
@@ -22,7 +23,7 @@ export class GroupsContainer extends Component<IProps, IState> {
   private _aggregateRepository = new GroupAggregatesRepo(this.context.connection)
 
   state: IState = {
-    groups: []
+    viewRows: []
   }
   componentDidMount() {
     this.fetchGroups()
@@ -40,17 +41,17 @@ export class GroupsContainer extends Component<IProps, IState> {
   }
 
   fetchGroups() {
-    this._aggregateRepository.find({ courseId: this.props.course.id.toString() })
-      .then(groups => this.setState(() => ({ groups })))
+    this._repository.findView({ courseId: this.props.course.id.toString() })
+      .then(viewRows => this.setState(() => ({ viewRows })))
   }
 
   render() {
-    const { groups } = this.state
+    const { viewRows } = this.state
     return (
       <>
         <NewGroup onCreate={x => this.addGroup(x)} />
         <GroupsTable
-          groups={groups}
+          viewRows={viewRows}
           removeGroup={async id => {
             await this._repository.remove(id)
             this.fetchGroups()

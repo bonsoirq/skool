@@ -4,12 +4,11 @@ import { LessonsRepo } from '../repos/lessons-repo';
 import { LessonsTable } from './LessonsTable';
 import { AppContext } from './AppContext';
 import { NewLesson } from './NewLesson';
-import { LessonAggregate } from '../aggregates/lesson-aggregate';
-import { LessonAggregatesRepo } from '../repos/lesson-aggregates-repo';
 import { Course } from '../entities/course';
+import { LessonsViewRow } from '../generated/row-types';
 
 interface IState {
-  lessons: LessonAggregate[],
+  viewRows: LessonsViewRow[],
 }
 
 interface IProps {
@@ -19,10 +18,9 @@ interface IProps {
 export class LessonsContainer extends Component<IProps, IState> {
   static contextType = AppContext
   private _repository = new LessonsRepo(this.context.connection)
-  private _aggregateRepository = new LessonAggregatesRepo(this.context.connection)
 
   state: IState = {
-    lessons: []
+    viewRows: []
   }
   componentDidMount() {
     this.fetchLessons()
@@ -40,17 +38,17 @@ export class LessonsContainer extends Component<IProps, IState> {
   }
 
   fetchLessons() {
-    this._aggregateRepository.find({ courseId: this.props.course.id.toString() })
-      .then(lessons => this.setState(() => ({ lessons })))
+    this._repository.findView({ courseId: this.props.course.id.toString() })
+      .then(viewRows => this.setState(() => ({ viewRows })))
   }
 
   render() {
-    const { lessons } = this.state
+    const { viewRows } = this.state
     return (
       <>
         <NewLesson onCreate={x => this.addLesson(x)} />
         <LessonsTable
-          lessons={lessons}
+          viewRows={viewRows}
           removeLesson={async id => {
             await this._repository.remove(id)
             this.fetchLessons()

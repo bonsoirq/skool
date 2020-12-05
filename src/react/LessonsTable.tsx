@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LessonAggregate } from '../aggregates/lesson-aggregate';
+import { LessonsViewRow } from '../generated/row-types';
+import { SerializeDate } from '../serializers/date';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
-import { UUIDv4 } from '../values/uuid';
+import { UUID, UUIDv4 } from '../values/uuid';
 
 interface IProps {
-  lessons: LessonAggregate[],
+  viewRows: LessonsViewRow[],
   removeLesson(id: UUIDv4): void,
 }
 
-export function LessonsTable({ lessons, removeLesson }: IProps){
+export function LessonsTable({ viewRows, removeLesson }: IProps){
     return (
       <>
         <table>
@@ -25,14 +27,14 @@ export function LessonsTable({ lessons, removeLesson }: IProps){
             </tr>
           </thead>
           <tbody>
-            {lessons.map((lesson, i) => <tr key={lesson.id.toString()}>
+            {viewRows.map((lesson, i) => <tr key={lesson.id}>
               <td>{i + 1}.</td>
               <td>{lesson.topic}</td>
-              <td>{lesson.group.name}</td>
-              <td>{lesson.advancementLevel.name}</td>
-              <td>{formatDate(lesson.createdAt)}</td>
+              <td>{lesson.groupName}</td>
+              <td>{lesson.advancementLevelName}</td>
+              <td>{formatDate(SerializeDate.toObject(lesson.createdAt))}</td>
               <td>
-                <button onClick={() => removeLesson(lesson.id)}>Delete</button>
+                <button onClick={() => removeLesson(UUID(lesson.id))}>Delete</button>
               </td>
               <td>
                 <Link to={`/Lessons/${lesson.id.toString()}/Presence`}>

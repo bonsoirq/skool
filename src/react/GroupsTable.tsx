@@ -1,14 +1,15 @@
 import React from 'react';
-import { GroupAggregate } from '../aggregates/group-aggregate';
+import { GroupsViewRow } from '../generated/row-types';
+import { SerializeDate } from '../serializers/date';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
-import { UUIDv4 } from '../values/uuid';
+import { UUID, UUIDv4 } from '../values/uuid';
 
 interface IProps {
-  groups: GroupAggregate[],
+  viewRows: GroupsViewRow[],
   removeGroup(id: UUIDv4): void,
 }
-export function GroupsTable({ groups, removeGroup }: IProps){
+export function GroupsTable({ viewRows, removeGroup }: IProps){
     return (
       <>
         <table>
@@ -22,13 +23,13 @@ export function GroupsTable({ groups, removeGroup }: IProps){
             </tr>
           </thead>
           <tbody>
-            {groups.map((group, i) => <tr key={group.id.toString()}>
+            {viewRows.map((group, i) => <tr key={group.id}>
               <td>{i + 1}.</td>
               <td>{group.name}</td>
-              <td>{group.advancementLevel.name}</td>
-              <td>{formatDate(group.createdAt)}</td>
+              <td>{group.advancementLevelName}</td>
+              <td>{formatDate(SerializeDate.toObject(group.createdAt))}</td>
               <td>
-                <button onClick={() => removeGroup(group.id)}>Delete</button>
+                <button onClick={() => removeGroup(UUID(group.id))}>Delete</button>
               </td>
             </tr>
             )}
@@ -39,6 +40,6 @@ export function GroupsTable({ groups, removeGroup }: IProps){
 }
 
 GroupsTable.defaultProps = {
-  groups: [],
+  viewRows: [],
   removeStudent: noop
 }

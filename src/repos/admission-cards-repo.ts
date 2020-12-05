@@ -1,6 +1,6 @@
 import { Connection } from "typeorm";
 import { AdmissionCard } from "../entities/admission-card";
-import { AdmissionCardsRow } from "../generated/row-types";
+import { AdmissionCardsRow, AdmissionCardsViewRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import { head } from "../util/array";
 import { UUID } from "../values/uuid";
@@ -16,6 +16,12 @@ export class AdmissionCardsRepo {
     const rows = await this.connection.query(text, values) as AdmissionCardsRow[]
 
     return rows.map(this._mapRow)
+  }
+
+  async findView(criteria = {}): Promise<AdmissionCardsViewRow[]> {
+    const { text, values } = sql
+      .select().from(`${this.tableName}View`).where(criteria).toParams()
+    return await this.connection.query(text, values) as AdmissionCardsViewRow[]
   }
 
   async findByNumber(number: string) {

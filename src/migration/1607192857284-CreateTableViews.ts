@@ -57,6 +57,17 @@ export class CreateTableViews1607192857284 implements MigrationInterface {
       JOIN AdvancementLevels ON AdvancementLevels.id = CourseProgress.advancementLevelId
       JOIN Courses ON Courses.id = CourseProgress.courseId
     `)
+    queryRunner.query(`
+    CREATE VIEW LessonsView AS SELECT
+    Lessons.id, Lessons.topic, Lessons.groupId, Lessons.advancementLevelId, Lessons.createdAt,
+    Groups.name AS groupName,
+    AdvancementLevels.name AS advancementLevelName, AdvancementLevels.courseId,
+    Courses.name AS courseName
+    FROM Lessons
+    JOIN Groups ON Groups.id = Lessons.groupId
+    JOIN AdvancementLevels ON AdvancementLevels.id = Lessons.advancementLevelId
+    JOIN Courses ON Courses.id = AdvancementLevels.courseId
+    `)
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
@@ -64,6 +75,7 @@ export class CreateTableViews1607192857284 implements MigrationInterface {
     queryRunner.query(`DROP VIEW IF EXISTS PresenceView`)
     queryRunner.query(`DROP VIEW IF EXISTS GroupsView`)
     queryRunner.query(`DROP VIEW IF EXISTS CourseProgressView`)
+    queryRunner.query(`DROP VIEW IF EXISTS LessonsView`)
   }
 
 }
