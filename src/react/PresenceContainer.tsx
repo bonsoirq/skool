@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { Presence } from '../entities/presence';
 import { DetailedPresence, PresenceRepo } from '../repos/presence-repo';
-// import { PresencesTable } from './PresencesTable';
 import { AppContext } from './AppContext';
-// import { NewPresence } from './NewPresence';
-// import { PresenceAggregate } from '../aggregates/presence-aggregate';
-// import { PresenceAggregatesRepo } from '../repos/presence-aggregates-repo';
 import { Course } from '../entities/course';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Lesson } from '../entities/lesson';
@@ -13,6 +9,9 @@ import { head } from '../util/array';
 import { LessonsRepo } from '../repos/lessons-repo';
 import { NewPresence } from './NewPresence';
 import { PresenceTable } from './PresenceTable';
+import { CourseProgressRepo } from '../repos/course-progress-repo';
+import { AdvancementLevelsRepo } from '../repos/advancement-levels-repo';
+import { buildCourseProgress } from '../entities/course-progress';
 
 interface IState {
   presence: DetailedPresence[],
@@ -32,7 +31,8 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
   static contextType = AppContext
   private _repository = new PresenceRepo(this.context.connection)
   private _lessonRepository = new LessonsRepo(this.context.connection)
-  // private _aggregateRepository = new PresenceAggregatesRepo(this.context.connection)
+  private _levelRepository = new AdvancementLevelsRepo(this.context.connection)
+  private _progressRepository = new CourseProgressRepo(this.context.connection)
 
   state: IState = {
     presence: [],
@@ -53,12 +53,26 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
   }
 
   async addPresence(presence: Presence) {
+    const lesson = this.state.lesson!
+    const advancementLevel = head(await this._levelRepository.find({ id: lesson.advancementLevelId }))!
     await this._repository.add(presence)
+    if(head(await this._progressRepository.find({
+        admissionCardNumber: presence.admissionCardNumber,
+        courseId: advancementLevel.courseId.toString()})
+      ) == null) {
+      const courseProgress = buildCourseProgress({
+        admissionCardNumber: presence.admissionCardNumber,
+        courseId: advancementLevel.courseId,
+        advancementLevelId: advancementLevel.id,
+        groupId: lesson.groupId,
+      })
+      await this._progressRepository.add(courseProgress)
+    }
     this.fetchPresences()
   }
 
   fetchPresences() {
-    this._repository.findDetailed({ courseId: this.props.course.id.toString() })
+    this._repository.findDetailed({ lessonId: this.state.lesson?.id.toString() })
       .then(presence => this.setState(() => ({ presence })))
   }
 
