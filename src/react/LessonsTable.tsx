@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { LessonAggregate } from '../aggregates/lesson-aggregate';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
@@ -20,7 +21,7 @@ export function LessonsTable({ lessons, removeLesson }: IProps){
               <th>Group</th>
               <th>AdvancementLevel</th>
               <th>Created</th>
-              <th>Actions</th>
+              <th colSpan={2}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +33,11 @@ export function LessonsTable({ lessons, removeLesson }: IProps){
               <td>{formatDate(lesson.createdAt)}</td>
               <td>
                 <button onClick={() => removeLesson(lesson.id)}>Delete</button>
+              </td>
+              <td>
+                <Link to={`/Lessons/${lesson.id.toString()}/Presence`}>
+                  <button>Check presence</button>
+                </Link>
               </td>
             </tr>
             )}

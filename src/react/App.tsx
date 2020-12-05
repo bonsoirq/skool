@@ -15,6 +15,7 @@ import { GroupsContainer } from './GroupsContainer';
 import { CourseProvider } from './CourseProvider';
 import { CourseContext } from './CourseContext';
 import { LessonsContainer } from './LessonsContainer';
+import { PresenceContainer } from './PresenceContainer';
 
 class App extends Component<null, IAppState> {
   state = {
@@ -57,6 +58,9 @@ class App extends Component<null, IAppState> {
                   </Route>
                   <Route exact path='/Lessons'>
                     <LessonsContainer course={course!} />
+                  </Route>
+                  <Route exact path='/Lessons/:id/Presence'>
+                    <PresenceContainer course={course!} />
                   </Route>
                 </>}
               </CourseContext.Consumer>

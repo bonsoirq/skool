@@ -1,17 +1,17 @@
-interface IPresence {
-  studentId: string;
-  classId: string;
-  attended: boolean;
+import { now } from "../util/date";
+import { UUIDv4 } from "../values/uuid";
+
+export type Presence = Required<PresenceProps>;
+
+type PresenceProps = {
+  admissionCardNumber: string;
+  lessonId: UUIDv4;
+  createdAt?: Date;
 }
 
-export class Presence implements IPresence{
-  readonly studentId: string;
-  readonly classId: string;
-  public attended: boolean;
-
-  constructor({ studentId, classId, attended }: IPresence) {
-    this.studentId = studentId;
-    this.classId = classId;
-    this.attended = attended;
+export function buildPresence(props: PresenceProps): Presence {
+  return {
+    createdAt: now(),
+    ...props,
   }
 }
