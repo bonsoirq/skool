@@ -5,12 +5,16 @@ const fs = require('fs')
 
 const tables = [
   'AdmissionCards',
+  'AdmissionCardsView',
   'AdvancementLevels',
   'CourseProgress',
+  'CourseProgressView',
   'Courses',
   'Groups',
+  'GroupsView',
   'Lessons',
   'Presence',
+  'PresenceView',
   'Students',
 ];
 
