@@ -11,6 +11,11 @@ import { CoursesContainer } from './CoursesContainer';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { Navigation } from './Navigation';
 import { isEmptyArray } from '../util/array';
+import { GroupsContainer } from './GroupsContainer';
+import { CourseProvider } from './CourseProvider';
+import { CourseContext } from './CourseContext';
+import { LessonsContainer } from './LessonsContainer';
+import { PresenceContainer } from './PresenceContainer';
 
 class App extends Component<null, IAppState> {
   state = {
@@ -39,12 +44,27 @@ class App extends Component<null, IAppState> {
             <Route exact path='/AdmissionCards'>
               <AdmissionCardsContainer />
             </Route>
-            <Route exact path='/AdvancementLevels'>
-              <AdvancementLevelsContainer />
-            </Route>
             <Route exact path='/Students'>
               <StudentsContainer />
             </Route>
+            <CourseProvider>
+              <CourseContext.Consumer>
+                {({ course }) => <>
+                  <Route exact path='/AdvancementLevels'>
+                    <AdvancementLevelsContainer course={course!} />
+                  </Route>
+                  <Route exact path='/Groups'>
+                    <GroupsContainer course={course!} />
+                  </Route>
+                  <Route exact path='/Lessons'>
+                    <LessonsContainer course={course!} />
+                  </Route>
+                  <Route exact path='/Lessons/:id/Presence'>
+                    <PresenceContainer course={course!} />
+                  </Route>
+                </>}
+              </CourseContext.Consumer>
+            </CourseProvider>
           </Switch>
         </Router>
       </AppContext.Provider>

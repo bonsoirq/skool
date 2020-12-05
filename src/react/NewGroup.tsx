@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import { isBlank } from '../util/string';
-import { AdvancementLevel, buildAdvancementLevel } from '../entities/advancement-level';
+import { Group, buildGroup } from '../entities/group';
 import { Form } from './components/Form';
-import { Course } from '../entities/course';
-
+import { AdvancementLevel } from '../entities/advancement-level';
+import { isNullish } from '../util/function';
+import { AdvancementLevelSelect } from './AdvancementLevelSelect';
+import { CourseContext } from './CourseContext';
 
 interface IProps {
-  onCreate: (student: AdvancementLevel) => void
-  course: Course;
+  onCreate: (student: Group) => void
 }
 
-export class NewAdvancementLevel extends Component<IProps, any> {
+interface IState {
+  advancementLevel: AdvancementLevel | null
+}
+
+export class NewGroup extends Component<IProps, IState> {
+  state: IState = {
+    advancementLevel: null
+  }
   render() {
-    const { course } = this.props
     return <Form
       initialValues={{ name: '' }}
       validations={this.validations}
@@ -28,12 +35,13 @@ export class NewAdvancementLevel extends Component<IProps, any> {
         handleSubmit,
       }) =>
         <>
-          <h3>New advancement level</h3>
+          <h3>New group</h3>
           <form action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { name } = values
-              const advancementLevel = buildAdvancementLevel({ name, courseId: course.id })
-              this.props.onCreate(advancementLevel)
+              const { advancementLevel } = this.state
+              const student = buildGroup({ name, advancementLevelId: advancementLevel!.id })
+              this.props.onCreate(student)
               restoreInitialValues()
             })
           }}>
@@ -49,6 +57,17 @@ export class NewAdvancementLevel extends Component<IProps, any> {
               />
             </label>
             {errors.name}
+            <CourseContext.Consumer>
+              {({ course }) => <>
+                <AdvancementLevelSelect
+                  course={course!}
+                  onSelect={advancementLevel => {
+                    this.setState(() => ({ advancementLevel }))
+                  }}
+                />
+              </>}
+            </CourseContext.Consumer>
+            {errors.advancementLevel}
             <input
               type="submit"
               value="Create"
@@ -62,5 +81,6 @@ export class NewAdvancementLevel extends Component<IProps, any> {
 
   validations = {
     name: (name: string) => isBlank(name) ? 'Required' : null,
+    advancementLevel: () => isNullish(this.state.advancementLevel) ? 'Required' : null,
   }
 }

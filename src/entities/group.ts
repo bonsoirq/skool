@@ -1,17 +1,16 @@
 import { now } from "../util/date";
 import { UUID, UUIDv4 } from "../values/uuid";
 
-export type Lesson = Required<LessonProps>
+export type Group = Required<GroupProps>;
 
-type LessonProps = {
+type GroupProps = {
   id?: UUIDv4;
-  topic: string;
-  groupId: UUIDv4;
+  name: string;
   advancementLevelId: UUIDv4;
   createdAt?: Date;
 }
 
-export function buildLesson(props: LessonProps): Lesson {
+export function buildGroup(props: GroupProps): Group {
   return {
     id: UUID(),
     createdAt: now(),
