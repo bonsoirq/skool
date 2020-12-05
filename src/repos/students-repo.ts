@@ -1,5 +1,5 @@
 import { Connection } from "typeorm";
-import { Student } from "../entities/student";
+import { Gender, Student } from "../entities/student";
 import { StudentsRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import { PhoneNumber } from "../values/phone-number";
@@ -34,17 +34,19 @@ export class StudentsRepo {
       id: UUID(row.id),
       name: row.name,
       lastName: row.lastName,
+      gender: row.gender as Gender,
       phoneNo: new PhoneNumber(row.phoneNo),
       createdAt: SerializeDate.toObject(row.createdAt),
     }
   }
 
   async add(student: Student) {
-    const { id, name, lastName, phoneNo, createdAt } = student
+    const { id, name, lastName, gender, phoneNo, createdAt } = student
     const row: StudentsRow = {
       id: id.toString(),
       name,
       lastName,
+      gender,
       phoneNo: phoneNo.toString(),
       createdAt: SerializeDate.toDatabase(createdAt),
     }

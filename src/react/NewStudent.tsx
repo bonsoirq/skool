@@ -19,6 +19,7 @@ export class NewStudent extends Component<IProps, IState> {
         name: '',
         lastName: '',
         phoneNo: '',
+        gender: 'male',
       }}
       validations={this.validations}
       >
@@ -37,8 +38,8 @@ export class NewStudent extends Component<IProps, IState> {
             <h3>Add a student</h3>
             <form action="" onSubmit={e => {
               handleSubmit(e, () => {
-                const { name, lastName, phoneNo } = values
-                const student = buildStudent({ name, lastName, phoneNo: new PhoneNumber(phoneNo) })
+                const { name, lastName, phoneNo, gender } = values
+                const student = buildStudent({ name, lastName, gender, phoneNo: new PhoneNumber(phoneNo) })
                 this.props.onCreate(student)
                 restoreInitialValues()
               })
@@ -67,6 +68,16 @@ export class NewStudent extends Component<IProps, IState> {
                 />
               </label>
               {errors.lastName}
+              <label>
+                Gender:
+                <select
+                  name="gender"
+                  value={values.gender}
+                  onChange={handleInputChange}>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </label>
               <label>
                 Phone Number:
                 <input

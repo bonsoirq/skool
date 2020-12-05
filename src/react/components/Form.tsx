@@ -14,7 +14,7 @@ type RenderingValues = {
   validate: () => Promise<void>,
   isValid: boolean,
   handleInputBlur: ChangeEventHandler<HTMLInputElement>,
-  handleInputChange: ChangeEventHandler<HTMLInputElement>,
+  handleInputChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>,
   handleInputFocus: ChangeEventHandler<HTMLInputElement>,
   handleSubmit: (event: FormEvent, successHandler: () => void) => void,
   restoreInitialValues: () => void
@@ -73,7 +73,7 @@ export class Form<TValues> extends Component<IProps<TValues>, IState> {
     })
   }
 
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     this.setState(s => ({ values: { ...s.values, [name]: value } }))
   }

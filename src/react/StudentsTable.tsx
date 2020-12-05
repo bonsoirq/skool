@@ -16,6 +16,7 @@ export function StudentsTable({ students, removeStudent }: IProps){
             <tr>
               <th>no.</th>
               <th>Name</th>
+              <th>Gender</th>
               <th>Phone</th>
               <th>Registration Date</th>
               <th>Actions</th>
@@ -25,6 +26,7 @@ export function StudentsTable({ students, removeStudent }: IProps){
             {students.map((student, i) => <tr key={student.id.toString()}>
               <td>{i + 1}.</td>
               <td>{student.name} {student.lastName}</td>
+              <td>{student.gender === 'male' ? 'Male' : 'Female'}</td>
               <td>{student.phoneNo.formattedString()}</td>
               <td>{formatDate(student.createdAt)}</td>
               <td>

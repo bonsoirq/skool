@@ -8,6 +8,7 @@ export class CreateStudents1605442268815 implements MigrationInterface {
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
         lastName TEXT NOT NULL,
+        gender TEXT NOT NULL,
         phoneNo TEXT NOT NULL,
         createdAt TEXT NOT NULL
       );

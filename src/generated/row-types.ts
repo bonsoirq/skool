@@ -48,6 +48,7 @@ export type PresenceRow = {
 
 export type StudentsRow = {
   createdAt: string;
+  gender: string;
   id: string;
   lastName: string;
   name: string;

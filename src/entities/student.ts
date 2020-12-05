@@ -3,11 +3,13 @@ import { PhoneNumber } from "../values/phone-number";
 import { UUID, UUIDv4 } from "../values/uuid";
 
 export type Student = Required<StudentProps>;
+export type Gender = 'male' | 'female'
 
 type StudentProps = {
   id?: UUIDv4;
   name: string;
   lastName: string;
+  gender: Gender,
   phoneNo: PhoneNumber;
   createdAt?: Date;
 }
