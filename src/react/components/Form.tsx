@@ -109,7 +109,11 @@ export class Form<TValues> extends Component<IProps<TValues>, IState> {
   }
   restoreInitialValues = () => this.setState(() => ({ values: {...this.props.initialValues}}))
 
-  setValues = (updater: (prevValues: Values) => Values) => this.setState(s => ({ values: {...s.values, ...updater(s.values)}}))
+  setValues = (updater: (prevValues: Values) => Values) => {
+    this.setState(s => ({ values: {...s.values, ...updater(s.values)}}), () => {
+      this.validate()
+    })
+  }
 
   private _getErrors = async () => {
     const errors: Errors = {}

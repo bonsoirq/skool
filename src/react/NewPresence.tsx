@@ -11,6 +11,9 @@ import { AppContext } from './AppContext';
 import { AdmissionCardsRepo } from '../repos/admission-cards-repo';
 import { PresenceRepo } from '../repos/presence-repo';
 import { head } from '../util/array';
+import { findStudentProgress } from '../use-case/find-student-progress';
+import { findOrCreateStudentProgress } from '../use-case/find-or-create-student-progress';
+import { UUID } from '../values/uuid';
 
 interface IProps {
   onCreate: (presence: Presence) => void
@@ -49,10 +52,22 @@ export class NewPresence extends Component<IProps, IState> {
         <>
           <h3>New presence | {this.props.lesson.topic}</h3>
           <form action="" onSubmit={e => {
-            handleSubmit(e, () => {
+            handleSubmit(e, async () => {
               const { admissionCardNumber } = values
               const { lesson } = this.props
-              const presence = buildPresence({ admissionCardNumber, lessonId: lesson.id })
+              const courseProgressView = await findOrCreateStudentProgress(
+                this.context.connection,
+                admissionCardNumber,
+                lesson,
+                )
+              const presence = buildPresence({
+                admissionCardNumber,
+                studentAdvancementLevelId: UUID(courseProgressView.advancementLevelId),
+                studentAdvancementLevelName: courseProgressView.advancementLevelName,
+                studentGroupId: UUID(courseProgressView.groupId),
+                studentGroupName: courseProgressView.groupName,
+                lessonId: lesson.id
+              })
               this.props.onCreate(presence)
               restoreInitialValues()
             })
@@ -70,6 +85,12 @@ export class NewPresence extends Component<IProps, IState> {
               />
             </label>
             {errors.admissionCardNumber}
+            <input
+              type="button"
+              value="Fill"
+              onClick={() => {
+              setValues(v => ({ admissionCardNumber: v.admissionCardNumber.padStart(NUMBER_DIGIT_COUNT, '0')}))
+            }} />
             <input
               type="submit"
               value="Create"

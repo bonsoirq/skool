@@ -1,6 +1,6 @@
 import { Connection } from "typeorm";
 import { Presence } from "../entities/presence";
-import { PresenceRow } from "../generated/row-types";
+import { PresenceRow, PresenceViewRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import sql from "../util/sqlite";
 import { UUID, UUIDv4 } from "../values/uuid";
@@ -38,40 +38,31 @@ export class PresenceRepo {
     return rows.map(x => ({
       lessonId: UUID(x.lessonId),
       admissionCardNumber: x.admissionCardNumber,
+      studentAdvancementLevelId: UUID(x.studentAdvancementLevelId),
+      studentAdvancementLevelName: x.studentAdvancementLevelName,
+      studentGroupId: UUID(x.studentGroupId),
+      studentGroupName:  x.studentGroupName,
       createdAt: SerializeDate.toObject(x.createdAt)
     }))
   }
 
-  async findDetailed(criteria = {}): Promise<DetailedPresence[]> {
+  async findView(criteria = {}): Promise<PresenceViewRow[]> {
     const { text, values } = sql
-      .select(`lessonId, admissionCardNumber, Presence.createdAt,
-      Students.name || ' ' || Students.lastName AS studentName,
-      Students.id AS studentId, AdvancementLevels.name AS advancementLevelName,
-      Groups.name AS groupName`).from(this.tableName)
-      .join('Lessons').on('Lessons.id', 'lessonId')
-      .join('AdvancementLevels').on('Lessons.advancementLevelId', 'AdvancementLevels.id')
-      .join('Groups').on('Lessons.groupId', 'Groups.id')
-      .join('AdmissionCards').on('AdmissionCards.number', 'admissionCardNumber')
-      .join('Students').on('AdmissionCards.studentId', 'Students.id')
-      .where(criteria).toParams()
-    const rows = await this.connection.query(text, values) as DetailedPresenceRow[]
-
-    return rows.map(x => ({
-      lessonId: UUID(x.lessonId),
-      studentId: UUID(x.studentId),
-      studentName: x.studentName,
-      admissionCardNumber: x.admissionCardNumber,
-      advancementLevelName: x.advancementLevelName,
-      groupName: x.groupName,
-      createdAt: SerializeDate.toObject(x.createdAt)
-    }))
+      .select().from(`${this.tableName}View`).where(criteria).toParams()
+    return await this.connection.query(text, values) as PresenceViewRow[]
   }
 
   async add(presence: Presence) {
-    const { lessonId, admissionCardNumber, createdAt } = presence
+    const { lessonId, admissionCardNumber, studentAdvancementLevelId,
+      studentAdvancementLevelName, studentGroupId,
+      studentGroupName, createdAt } = presence
     const row: PresenceRow = {
       lessonId: lessonId.toString(),
       admissionCardNumber,
+      studentAdvancementLevelId: studentAdvancementLevelId.toString(),
+      studentAdvancementLevelName: studentAdvancementLevelName,
+      studentGroupId: studentGroupId.toString(),
+      studentGroupName:  studentGroupName,
       createdAt: SerializeDate.toDatabase(createdAt),
     }
     const { text, values } = sql

@@ -1,6 +1,6 @@
 import { Connection } from "typeorm";
 import { CourseProgress } from "../entities/course-progress";
-import { CourseProgressRow } from "../generated/row-types";
+import { CourseProgressRow, CourseProgressViewRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import sql from "../util/sqlite";
 import { UUID, UUIDv4 } from "../values/uuid";
@@ -22,6 +22,12 @@ export class CourseProgressRepo {
       courseId: UUID(x.courseId),
       createdAt: SerializeDate.toObject(x.createdAt),
     }))
+  }
+
+  async findView(criteria = {}): Promise<CourseProgressViewRow[]> {
+    const { text, values } = sql
+      .select().from(`${this.tableName}View`).where(criteria).toParams()
+    return await this.connection.query(text, values) as CourseProgressViewRow[]
   }
 
   async add(courseprogress: CourseProgress) {

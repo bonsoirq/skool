@@ -1,5 +1,5 @@
 import { Connection } from "typeorm";
-import { Group } from "../entities/group";
+import { buildGroup, Group } from "../entities/group";
 import { GroupsRow, GroupsViewRow } from "../generated/row-types";
 import { SerializeDate } from "../serializers/date";
 import sql from "../util/sqlite";
@@ -21,6 +21,15 @@ export class GroupsRepo {
       advancementLevelId: UUID(x.advancementLevelId),
       createdAt: SerializeDate.toObject(x.createdAt),
     }))
+  }
+
+  toEntity = (view: GroupsViewRow): Group => {
+    return buildGroup({
+      id: UUID(view.id),
+      name: view.name,
+      advancementLevelId: UUID(view.advancementLevelId),
+      createdAt: SerializeDate.toObject(view.createdAt),
+    })
   }
 
   async findView(criteria = {}): Promise<GroupsViewRow[]> {

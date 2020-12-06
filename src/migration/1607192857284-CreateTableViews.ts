@@ -24,6 +24,8 @@ export class CreateTableViews1607192857284 implements MigrationInterface {
     queryRunner.query(`
       CREATE VIEW PresenceView AS SELECT
       Presence.admissionCardNumber, Presence.createdAt, Presence.lessonId,
+      Presence.studentGroupId, Presence.studentGroupName,
+      Presence.studentAdvancementLevelId, Presence.studentAdvancementLevelName,
       Lessons.topic AS lessonTopic, Lessons.groupId, Lessons.advancementLevelId,
       AdmissionCards.studentId,
       Students.name AS studentName, Students.lastName AS studentLastName,

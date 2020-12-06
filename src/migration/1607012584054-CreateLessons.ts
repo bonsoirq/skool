@@ -34,6 +34,10 @@ export class CreateLessons1607012584054 implements MigrationInterface {
         CREATE TABLE Presence (
           lessonId TEXT NOT NULL,
           admissionCardNumber TEXT NOT NULL,
+          studentGroupId TEXT NOT NULL,
+          studentGroupName TEXT NOT NULL,
+          studentAdvancementLevelId TEXT NOT NULL,
+          studentAdvancementLevelName TEXT NOT NULL,
           createdAt TEXT NOT NULL,
           PRIMARY KEY (admissionCardNumber, lessonId)
         );

@@ -38,8 +38,9 @@ export class GroupSelect extends Component<IProps, IState> {
 
   fetchGroups() {
     const { course } = this.props
-    this._repository.find({ courseId: course.id.toString() })
-      .then(groups => {
+    this._repository.findView({ courseId: course.id.toString() })
+      .then(groupViews => {
+        const groups = groupViews.map(this._repository.toEntity)
         this.setState(() => ({ groups }))
         if (!isEmptyArray(groups)) {
           const next = head(groups)!

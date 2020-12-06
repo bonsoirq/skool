@@ -12,9 +12,10 @@ import { PresenceTable } from './PresenceTable';
 import { CourseProgressRepo } from '../repos/course-progress-repo';
 import { AdvancementLevelsRepo } from '../repos/advancement-levels-repo';
 import { buildCourseProgress } from '../entities/course-progress';
+import { PresenceViewRow } from '../generated/row-types';
 
 interface IState {
-  presence: DetailedPresence[],
+  viewRows: PresenceViewRow[],
   lesson: Lesson | null
 }
 
@@ -35,7 +36,7 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
   private _progressRepository = new CourseProgressRepo(this.context.connection)
 
   state: IState = {
-    presence: [],
+    viewRows: [],
     lesson: null,
   }
   async componentDidMount() {
@@ -72,18 +73,18 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
   }
 
   fetchPresences() {
-    this._repository.findDetailed({ lessonId: this.state.lesson?.id.toString() })
-      .then(presence => this.setState(() => ({ presence })))
+    this._repository.findView({ lessonId: this.state.lesson?.id.toString() })
+      .then(viewRows => this.setState(() => ({ viewRows })))
   }
 
   render() {
-    const { lesson, presence } = this.state
+    const { lesson, viewRows } = this.state
     if (lesson == null) return null
     return (
       <>
         <NewPresence lesson={lesson} onCreate={x => this.addPresence(x)} />
         <PresenceTable
-          presence={presence}
+          viewRows={viewRows}
           removePresence={async (admissionCardNumber, lessonId) => {
             await this._repository.remove(admissionCardNumber, lessonId)
             this.fetchPresences()

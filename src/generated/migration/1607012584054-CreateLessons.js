@@ -53,7 +53,7 @@ var CreateLessons1607012584054 = /** @class */ (function () {
                         return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE Lessons (\n          id TEXT PRIMARY KEY,\n          topic TEXT NOT NULL,\n          groupId TEXT NOT NULL,\n          advancementLevelId TEXT NOT NULL,\n          createdAt TEXT NOT NULL\n        );\n      ")];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE Presence (\n          lessonId TEXT NOT NULL,\n          admissionCardNumber TEXT NOT NULL,\n          createdAt TEXT NOT NULL,\n          PRIMARY KEY (admissionCardNumber, lessonId)\n        );\n      ")];
+                        return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE Presence (\n          lessonId TEXT NOT NULL,\n          admissionCardNumber TEXT NOT NULL,\n          studentGroupId TEXT NOT NULL,\n          studentGroupName TEXT NOT NULL,\n          studentAdvancementLevelId TEXT NOT NULL,\n          studentAdvancementLevelName TEXT NOT NULL,\n          createdAt TEXT NOT NULL,\n          PRIMARY KEY (admissionCardNumber, lessonId)\n        );\n      ")];
                     case 4:
                         _a.sent();
                         return [2 /*return*/];

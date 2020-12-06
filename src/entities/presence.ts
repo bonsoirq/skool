@@ -6,6 +6,10 @@ export type Presence = Required<PresenceProps>;
 type PresenceProps = {
   admissionCardNumber: string;
   lessonId: UUIDv4;
+  studentAdvancementLevelId: UUIDv4;
+  studentAdvancementLevelName: string;
+  studentGroupId: UUIDv4;
+  studentGroupName: string;
   createdAt?: Date;
 }
 

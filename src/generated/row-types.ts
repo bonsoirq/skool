@@ -79,6 +79,7 @@ export type LessonsRow = {
 export type LessonsViewRow = {
   advancementLevelId: string;
   advancementLevelName: string;
+  courseId: string;
   courseName: string;
   createdAt: string;
   groupId: string;
@@ -91,6 +92,10 @@ export type PresenceRow = {
   admissionCardNumber: string;
   createdAt: string;
   lessonId: string;
+  studentAdvancementLevelId: string;
+  studentAdvancementLevelName: string;
+  studentGroupId: string;
+  studentGroupName: string;
 }
 
 export type PresenceViewRow = {
@@ -103,7 +108,11 @@ export type PresenceViewRow = {
   groupName: string;
   lessonId: string;
   lessonTopic: string;
+  studentAdvancementLevelId: string;
+  studentAdvancementLevelName: string;
   studentGender: string;
+  studentGroupId: string;
+  studentGroupName: string;
   studentId: string;
   studentLastName: string;
   studentName: string;
