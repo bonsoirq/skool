@@ -51,7 +51,7 @@ export class NewPresence extends Component<IProps, IState> {
       }) =>
         <>
           <h3>New presence | {this.props.lesson.topic}</h3>
-          <form action="" onSubmit={e => {
+          <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, async () => {
               const { admissionCardNumber } = values
               const { lesson } = this.props
@@ -73,8 +73,9 @@ export class NewPresence extends Component<IProps, IState> {
             })
           }}>
             <label>
-              Admission Card number:
-            <input
+              <span className="form-label">Admission Card number:</span>
+              <input
+                className="form-field"
                 name="admissionCardNumber"
                 type="text"
                 maxLength={NUMBER_DIGIT_COUNT}
@@ -83,15 +84,17 @@ export class NewPresence extends Component<IProps, IState> {
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
               />
+              <span className="error-message">{errors.admissionCardNumber}</span>
             </label>
-            {errors.admissionCardNumber}
             <input
+              className="form-field"
               type="button"
               value="Fill"
               onClick={() => {
               setValues(v => ({ admissionCardNumber: v.admissionCardNumber.padStart(NUMBER_DIGIT_COUNT, '0')}))
             }} />
             <input
+              className="form-field"
               type="submit"
               value="Create"
               disabled={!isValid}

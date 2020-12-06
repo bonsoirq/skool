@@ -31,11 +31,18 @@ export class CourseProvider extends Component<any, ICourseContext> {
   render() {
     const { courses, course } = this.state
     return <>
-      Course: <CourseSelect onSelect={course => this.setState(() => ({ course }))} />
-      <CourseContext.Provider value={{ courses, course }}>
-        {course == null && <Placeholder />}
-        {course != null && this.props.children}
-      </CourseContext.Provider>
+      <header>
+        <label htmlFor="contextCourse">
+          <span className="form-label">Current Course:</span>
+          <CourseSelect name="contextCourse" onSelect={course => this.setState(() => ({ course }))} />
+        </label>
+      </header>
+      <section>
+        <CourseContext.Provider value={{ courses, course }}>
+          {course == null && <Placeholder />}
+          {course != null && this.props.children}
+        </CourseContext.Provider>
+      </section>
     </>
   }
 }

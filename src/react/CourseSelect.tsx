@@ -7,6 +7,7 @@ import { noop } from '../util/function';
 
 interface IProps {
   onSelect: (course: Course) => void
+  name?: string
 }
 
 interface IState {
@@ -46,6 +47,8 @@ export class CourseSelect extends Component<IProps, IState> {
       </select>
     }
     return <select
+      className="form-field"
+      name={this.props.name}
       onChange={e => {
         const course = courses.find(x => x.id.toString() === e.target.value)
         if (course != null) {

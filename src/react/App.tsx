@@ -8,7 +8,7 @@ import { Placeholder } from './Placeholder';
 import { SelectSaveFile } from './SelectSaveFile';
 import { StudentsContainer } from './StudentsContainer';
 import { CoursesContainer } from './CoursesContainer';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Navigation } from './Navigation';
 import { isEmptyArray } from '../util/array';
 import { GroupsContainer } from './GroupsContainer';
@@ -16,6 +16,9 @@ import { CourseProvider } from './CourseProvider';
 import { CourseContext } from './CourseContext';
 import { LessonsContainer } from './LessonsContainer';
 import { PresenceContainer } from './PresenceContainer';
+import 'normalize.css'
+import './App.css'
+import { HeaderLayout } from './components/HeaderLayout';
 
 class App extends Component<null, IAppState> {
   state = {
@@ -34,40 +37,57 @@ class App extends Component<null, IAppState> {
       return <SelectSaveFile onSuccess={this.setDatabaseConnection} />
     }
     if (this.connectionReady) {
-      return <AppContext.Provider value={this.state}>
-        <Router>
-          <Navigation />
-          <Switch>
-            <Route exact path='/'>
-              <CoursesContainer />
-            </Route>
-            <Route exact path='/AdmissionCards'>
-              <AdmissionCardsContainer />
-            </Route>
-            <Route exact path='/Students'>
-              <StudentsContainer />
-            </Route>
-            <CourseProvider>
-              <CourseContext.Consumer>
-                {({ course }) => <>
-                  <Route exact path='/AdvancementLevels'>
-                    <AdvancementLevelsContainer course={course!} />
-                  </Route>
-                  <Route exact path='/Groups'>
-                    <GroupsContainer course={course!} />
-                  </Route>
-                  <Route exact path='/Lessons'>
-                    <LessonsContainer course={course!} />
-                  </Route>
-                  <Route exact path='/Lessons/:id/Presence'>
-                    <PresenceContainer course={course!} />
-                  </Route>
-                </>}
-              </CourseContext.Consumer>
-            </CourseProvider>
-          </Switch>
-        </Router>
-      </AppContext.Provider>
+      return <div className="app">
+        <AppContext.Provider value={this.state}>
+          <Router>
+            <aside>
+              <Navigation />
+            </aside>
+            <main>
+              <Switch>
+                <Route exact path='/'>
+                  <HeaderLayout>
+                    <Redirect to="/Courses" />
+                  </HeaderLayout>
+                </Route>
+                <Route exact path='/Courses'>
+                  <HeaderLayout>
+                    <CoursesContainer />
+                  </HeaderLayout>
+                </Route>
+                <Route exact path='/AdmissionCards'>
+                  <HeaderLayout>
+                    <AdmissionCardsContainer />
+                  </HeaderLayout>
+                </Route>
+                <Route exact path='/Students'>
+                  <HeaderLayout>
+                    <StudentsContainer />
+                  </HeaderLayout>
+                </Route>
+                <CourseProvider>
+                  <CourseContext.Consumer>
+                    {({ course }) => <>
+                      <Route exact path='/AdvancementLevels'>
+                        <AdvancementLevelsContainer course={course!} />
+                      </Route>
+                      <Route exact path='/Groups'>
+                        <GroupsContainer course={course!} />
+                      </Route>
+                      <Route exact path='/Lessons'>
+                        <LessonsContainer course={course!} />
+                      </Route>
+                      <Route exact path='/Lessons/:id/Presence'>
+                        <PresenceContainer course={course!} />
+                      </Route>
+                    </>}
+                  </CourseContext.Consumer>
+                </CourseProvider>
+              </Switch>
+            </main>
+          </Router>
+        </AppContext.Provider>
+      </div>
     }
     return <Placeholder /> // TODO: Loading screen
   }

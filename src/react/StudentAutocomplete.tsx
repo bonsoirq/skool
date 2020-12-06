@@ -36,8 +36,7 @@ export class StudentAutocomplete extends Component<IProps, IState> {
         handleInputChange,
         restoreInitialValues,
       }) => <label htmlFor="studentSearch">
-          Student:
-          <StudentName student={student} />
+          <span className="form-label">Student: <StudentName student={student} /></span>
           <Autocomplete
             suggestions={suggestedStudents}
             name="studentSearch"
@@ -56,6 +55,7 @@ export class StudentAutocomplete extends Component<IProps, IState> {
               restoreInitialValues()
             }}
           />
+          <span className="error-message"></span>
         </label>
       }
     </Form>

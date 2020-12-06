@@ -44,7 +44,7 @@ export class NewAdmissionCard extends Component<IProps, IState> {
       }) =>
         <>
           <h3>Add an admissionCard</h3>
-          <form action="" onSubmit={e => {
+          <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { number } = values
               if (student != null) {
@@ -56,8 +56,9 @@ export class NewAdmissionCard extends Component<IProps, IState> {
             })
           }}>
             <label htmlFor="number">
-              Number:
+              <span className="form-label">Number:</span>
               <input
+                className="form-field"
                 name="number"
                 type="text"
                 maxLength={NUMBER_DIGIT_COUNT}
@@ -66,13 +67,14 @@ export class NewAdmissionCard extends Component<IProps, IState> {
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
               />
+              <span className="error-message">{errors.number}</span>
             </label>
-            {errors.number}
             <StudentAutocomplete
               onSelect={(student: Student) => this.setState(() => ({ student }), validate)}
             />
             { errors.student }
             <input
+              className="form-field"
               type="submit"
               value="Add"
               disabled={!isValid}

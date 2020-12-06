@@ -52,11 +52,14 @@ export class GroupSelect extends Component<IProps, IState> {
   render() {
     const { groups } = this.state
     if (isEmptyArray(groups)) {
-      return <select disabled>
+      return <select
+        className="form-field"
+        disabled>
         <option>No groups available</option>
       </select>
     }
     return <select
+      className="form-field"
       onChange={e => {
         const next = groups.find(x => x.id.toString() === e.target.value)
         if (next != null) {

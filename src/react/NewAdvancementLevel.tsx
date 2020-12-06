@@ -29,7 +29,7 @@ export class NewAdvancementLevel extends Component<IProps, any> {
       }) =>
         <>
           <h3>New advancement level</h3>
-          <form action="" onSubmit={e => {
+          <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { name } = values
               const advancementLevel = buildAdvancementLevel({ name, courseId: course.id })
@@ -38,8 +38,9 @@ export class NewAdvancementLevel extends Component<IProps, any> {
             })
           }}>
             <label>
-              Name:
-            <input
+              <span className="form-label">Name:</span>
+              <input
+                className="form-field"
                 name="name"
                 type="text"
                 value={values.name}
@@ -47,9 +48,10 @@ export class NewAdvancementLevel extends Component<IProps, any> {
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
               />
+              <div className="error-message">{errors.name}</div>
             </label>
-            {errors.name}
             <input
+              className="form-field"
               type="submit"
               value="Create"
               disabled={!isValid}

@@ -36,7 +36,7 @@ export class NewGroup extends Component<IProps, IState> {
       }) =>
         <>
           <h3>New group</h3>
-          <form action="" onSubmit={e => {
+          <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { name } = values
               const { advancementLevel } = this.state
@@ -46,8 +46,9 @@ export class NewGroup extends Component<IProps, IState> {
             })
           }}>
             <label>
-              Name:
+            <span className="form-label">Name:</span>
             <input
+                className="form-field"
                 name="name"
                 type="text"
                 value={values.name}
@@ -55,20 +56,24 @@ export class NewGroup extends Component<IProps, IState> {
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
               />
+              <span className="error-message">{errors.name}</span>
             </label>
-            {errors.name}
-            <CourseContext.Consumer>
-              {({ course }) => <>
-                <AdvancementLevelSelect
-                  course={course!}
-                  onSelect={advancementLevel => {
-                    this.setState(() => ({ advancementLevel }))
-                  }}
-                />
-              </>}
-            </CourseContext.Consumer>
-            {errors.advancementLevel}
+            <label>
+              <span className="form-label">Advancement level:</span>
+              <CourseContext.Consumer>
+                {({ course }) => <>
+                  <AdvancementLevelSelect
+                    course={course!}
+                    onSelect={advancementLevel => {
+                      this.setState(() => ({ advancementLevel }))
+                    }}
+                  />
+                </>}
+              </CourseContext.Consumer>
+              <span className="error-message">{errors.advancementLevel}</span>
+            </label>
             <input
+              className="form-field"
               type="submit"
               value="Create"
               disabled={!isValid}

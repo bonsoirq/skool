@@ -40,7 +40,7 @@ export class NewLesson extends Component<IProps, IState> {
       }) =>
         <>
           <h3>New lesson</h3>
-          <form action="" onSubmit={e => {
+          <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { topic } = values
               const { advancementLevel, group } = this.state
@@ -50,8 +50,9 @@ export class NewLesson extends Component<IProps, IState> {
             })
           }}>
             <label>
-              Topic:
-            <input
+              <span className="form-label">Topic:</span>
+              <input
+                className="form-field"
                 name="topic"
                 type="text"
                 value={values.topic}
@@ -59,29 +60,34 @@ export class NewLesson extends Component<IProps, IState> {
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
               />
+              <span className="error-message">{errors.topic}</span>
             </label>
-            {errors.topic}
             <CourseContext.Consumer>
               {({ course }) => <>
-                Group:
-                <GroupSelect
-                  course={course!}
-                  onSelect={group => {
-                    this.setState(() => ({ group }))
-                  }}
-                />
-                {errors.group}
-                Advancement Level
-                <AdvancementLevelSelect
-                  course={course!}
-                  onSelect={advancementLevel => {
-                    this.setState(() => ({ advancementLevel }))
-                  }}
-                />
-                {errors.advancementLevel}
+                <label>
+                  <span className="form-label">Group:</span>
+                  <GroupSelect
+                    course={course!}
+                    onSelect={group => {
+                      this.setState(() => ({ group }))
+                    }}
+                  />
+                  <span className="error-message">{errors.group}</span>
+                </label>
+                <label>
+                  <span className="form-label">Advancement level:</span>
+                  <AdvancementLevelSelect
+                    course={course!}
+                    onSelect={advancementLevel => {
+                      this.setState(() => ({ advancementLevel }))
+                    }}
+                  />
+                  <span className="error-message">{errors.advancementLevel}</span>
+                </label>
               </>}
             </CourseContext.Consumer>
             <input
+              className="form-field"
               type="submit"
               value="Create"
               disabled={!isValid}

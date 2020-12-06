@@ -1,38 +1,124 @@
-.App {
-  text-align: center;
+:root {
+  --text-active-color: rgba(0, 0, 0, .87);
+  --text-inactive-color: rgba(0, 0, 0, .60);
+  --text-disabled-color: rgba(0, 0, 0, .38);
+  --text-error-color: #b00020;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app aside {
+  min-width: 256px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, .38);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app main {
+  width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.app section {
+  padding: 16px 32px;
+}
+
+.app header {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.app label {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
+}
+
+.form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.form-label {
+  font-size: 10pt;
+  color: var(--text-disabled-color);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.error-message {
+  font-size: 10pt;
+  height: 10pt;
+  color: var(--text-error-color);
+}
+
+.form-field {
+  color: var(--text-active-color);
+  margin: 4px 0;
+  padding: 4px 8px;
+  border: .25px solid var(--text-disabled-color);
+  border-radius: 4px;
+}
+
+input[type=button], input[type=submit] {
+  margin-right: 16px;
+}
+
+.form-field:disabled {
+  color: var(--text-disabled-color);
+}
+
+.Navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.Navigation a {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-size: 12pt;
+  white-space: nowrap;
+  color: var(--text-inactive-color);
+  border-bottom: .25px solid #fafafa;
+}
+
+.Navigation a.active {
+  color: var(--text-active-color);
+}
+
+.Autocomplete ul {
+  padding: 0;
+  margin: 0;
+  display: block;
+  margin-top: -4px;
+  list-style: none;
+  position: absolute;
+  z-index: 1;
+  background-color: #fff;
+  border: .25px solid #fafafa;
+}
+
+.Autocomplete li {
+  padding: 4px 8px;
+  color: var(--text-inactive-color);
+  cursor: pointer;
+}
+
+.Autocomplete li:hover {
+  padding: 4px 12px;
+  color: var(--text-active-color);
+}
+
+h3 {
+  font-weight: normal;
+  size: 48pt;
+  letter-spacing: 0;
 }

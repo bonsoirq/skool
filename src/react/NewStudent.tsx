@@ -36,7 +36,7 @@ export class NewStudent extends Component<IProps, IState> {
           }) =>
           <>
             <h3>Add a student</h3>
-            <form action="" onSubmit={e => {
+            <form className="form-inline" action="" onSubmit={e => {
               handleSubmit(e, () => {
                 const { name, lastName, phoneNo, gender } = values
                 const student = buildStudent({ name, lastName, gender, phoneNo: new PhoneNumber(phoneNo) })
@@ -45,8 +45,9 @@ export class NewStudent extends Component<IProps, IState> {
               })
             }}>
               <label>
-                Name:
+                <span className="form-label">Name:</span>
                 <input
+                  className="form-field"
                   name="name"
                   type="text"
                   value={values.name}
@@ -54,11 +55,12 @@ export class NewStudent extends Component<IProps, IState> {
                   onChange={handleInputChange}
                   onBlur={handleInputBlur}
                 />
+                <span className="error-message">{errors.name}</span>
               </label>
-              {errors.name}
               <label>
-                Lastname:
+                <span className="form-label">Lastname:</span>
                 <input
+                  className="form-field"
                   name="lastName"
                   type="text"
                   value={values.lastName}
@@ -66,21 +68,24 @@ export class NewStudent extends Component<IProps, IState> {
                   onChange={handleInputChange}
                   onBlur={handleInputBlur}
                 />
+                <span className="error-message">{errors.lastName}</span>
               </label>
-              {errors.lastName}
               <label>
-                Gender:
+                <span className="form-label">Gender:</span>
                 <select
+                  className="form-field"
                   name="gender"
                   value={values.gender}
                   onChange={handleInputChange}>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
+                <span className="error-message"></span>
               </label>
               <label>
-                Phone Number:
+                <span className="form-label">Phone Number:</span>
                 <input
+                  className="form-field"
                   name="phoneNo"
                   type="text"
                   value={values.phoneNo}
@@ -88,9 +93,10 @@ export class NewStudent extends Component<IProps, IState> {
                   onChange={handleInputChange}
                   onBlur={handleInputBlur}
                 />
+                <span className="error-message">{errors.phoneNo}</span>
               </label>
-              {errors.phoneNo}
               <input
+                className="form-field"
                 type="submit"
                 value="Add a student"
                 disabled={!isValid}

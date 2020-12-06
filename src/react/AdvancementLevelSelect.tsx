@@ -52,10 +52,11 @@ export class AdvancementLevelSelect extends Component<IProps, IState> {
     const { advancementlevels } = this.state
     if (isEmptyArray(advancementlevels)) {
       return <select disabled>
-        <option>No advancementlevels available</option>
+        <option>No advancement levels available</option>
       </select>
     }
     return <select
+      className="form-field"
       onChange={e => {
         const next = advancementlevels.find(x => x.id.toString() === e.target.value)
         if (next != null) {
