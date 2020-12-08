@@ -45,7 +45,7 @@ var CreateStudents1605442268815 = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query("\n      CREATE TABLE Students (\n        id TEXT PRIMARY KEY,\n        name TEXT NOT NULL,\n        lastName TEXT NOT NULL,\n        gender TEXT NOT NULL,\n        phoneNo TEXT NOT NULL,\n        createdAt TEXT NOT NULL\n      );\n    ")];
+                    case 0: return [4 /*yield*/, queryRunner.query("\n      CREATE TABLE Students (\n        id TEXT PRIMARY KEY NOT NULL,\n        name TEXT NOT NULL,\n        lastName TEXT NOT NULL,\n        gender TEXT NOT NULL,\n        phoneNo TEXT NOT NULL,\n        createdAt TEXT NOT NULL\n      );\n    ")];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];

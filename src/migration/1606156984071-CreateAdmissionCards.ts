@@ -5,7 +5,7 @@ export class CreateAdmissionCards1606156984071 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE AdvancementLevels (
-        id TEXT PRIMARY KEY,
+        id TEXT PRIMARY KEY NOT NULL,
         name TEXT NOT NULL,
         courseId TEXT NOT NULL,
         createdAt TEXT NOT NULL
@@ -13,7 +13,7 @@ export class CreateAdmissionCards1606156984071 implements MigrationInterface {
     `)
     await queryRunner.query(`
       CREATE TABLE AdmissionCards (
-        number TEXT PRIMARY KEY,
+        number TEXT PRIMARY KEY NOT NULL,
         studentId TEXT NOT NULL,
         createdAt TEXT NOT NULL
       );

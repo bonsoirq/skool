@@ -44,13 +44,13 @@ var CreateLessons1607012584054 = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE Groups (\n          id TEXT PRIMARY KEY,\n          name TEXT NOT NULL,\n          advancementLevelId TEXT NOT NULL,\n          createdAt TEXT NOT NULL\n        );\n      ")];
+                    case 0: return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE Groups (\n          id TEXT PRIMARY KEY NOT NULL,\n          name TEXT NOT NULL,\n          advancementLevelId TEXT NOT NULL,\n          createdAt TEXT NOT NULL\n        );\n      ")];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE CourseProgress (\n          admissionCardNumber TEXT NOT NULL,\n          courseId TEXT NOT NULL,\n          advancementLevelId TEXT NOT NULL,\n          groupId TEXT NOT NULL,\n          createdAt TEXT NOT NULL,\n          PRIMARY KEY (admissionCardNumber, courseId)\n        );\n      ")];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE Lessons (\n          id TEXT PRIMARY KEY,\n          topic TEXT NOT NULL,\n          groupId TEXT NOT NULL,\n          advancementLevelId TEXT NOT NULL,\n          createdAt TEXT NOT NULL\n        );\n      ")];
+                        return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE Lessons (\n          id TEXT PRIMARY KEY NOT NULL,\n          topic TEXT NOT NULL,\n          groupId TEXT NOT NULL,\n          advancementLevelId TEXT NOT NULL,\n          createdAt TEXT NOT NULL\n        );\n      ")];
                     case 3:
                         _a.sent();
                         return [4 /*yield*/, queryRunner.query("\n        CREATE TABLE Presence (\n          lessonId TEXT NOT NULL,\n          admissionCardNumber TEXT NOT NULL,\n          studentGroupId TEXT NOT NULL,\n          studentGroupName TEXT NOT NULL,\n          studentAdvancementLevelId TEXT NOT NULL,\n          studentAdvancementLevelName TEXT NOT NULL,\n          createdAt TEXT NOT NULL,\n          PRIMARY KEY (admissionCardNumber, lessonId)\n        );\n      ")];

@@ -5,7 +5,7 @@ export class CreateStudents1605442268815 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE Students (
-        id TEXT PRIMARY KEY,
+        id TEXT PRIMARY KEY NOT NULL,
         name TEXT NOT NULL,
         lastName TEXT NOT NULL,
         gender TEXT NOT NULL,
