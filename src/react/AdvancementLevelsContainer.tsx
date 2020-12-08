@@ -22,11 +22,13 @@ export class AdvancementLevelsContainer extends Component<IProps, IState> {
   componentDidMount() {
     this.fetchAdvancementLevels()
   }
-  componentDidUpdate() {
-    this.fetchAdvancementLevels()
+  componentDidUpdate(prevProps: IProps) {
+    if (prevProps.course !== this.props.course) {
+      this.fetchAdvancementLevels()
+    }
   }
+
   async addAdvancementLevel(advancementLevel: AdvancementLevel) {
-    await this._repository.add(advancementLevel)
     this.fetchAdvancementLevels()
   }
 
@@ -44,6 +46,7 @@ export class AdvancementLevelsContainer extends Component<IProps, IState> {
         <NewAdvancementLevel course={course} onCreate={x => this.addAdvancementLevel(x)} />
         <AdvancementLevelsTable
           advancementLevels={advancementLevels}
+          refresh={() => this.fetchAdvancementLevels()}
           removeAdvancementLevel={async id => {
             await this._repository.remove(id)
             this.fetchAdvancementLevels()

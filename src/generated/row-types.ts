@@ -19,6 +19,8 @@ export type AdvancementLevelsRow = {
   createdAt: string;
   id: string;
   name: string;
+  nextLevelId: string | null;
+  position: number;
 }
 
 export type CourseProgressRow = {

@@ -139,6 +139,12 @@ th, td {
   background-color: transparent;
 }
 
+td.actions {
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
+}
+
 tr:nth-child(even) {
   background-color: #fafafa;
 }
@@ -153,3 +159,27 @@ td button {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.sorting-buttons {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0 4px;
+  font-size: 8pt;
+  font-variant-caps: small-caps;
+  border: .25px solid var(--text-inactive-color);
+  border-radius: 4px;
+}
+
+
+.sorting-buttons button {
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.sorting-buttons button:first-child {
+  border-bottom: .25px solid var(--text-inactive-color);
+  border-radius: 0;
+}
+

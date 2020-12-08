@@ -12,3 +12,5 @@ export const omit = <TObject extends {}>(anObject: TObject, ...keys: string[]) =
 }
 
 export const isEmptyObject = <TObject extends {}>(anObject: TObject): boolean => isEmptyArray(Object.entries(anObject))
+
+export const copy = <TObject extends {}>(anObject: TObject): TObject => ({...anObject})

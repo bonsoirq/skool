@@ -31,7 +31,7 @@ export class CourseProgressRepo {
   }
 
   async add(courseprogress: CourseProgress) {
-    const { admissionCardNumber,advancementLevelId, groupId, courseId, createdAt } = courseprogress
+    const { admissionCardNumber, advancementLevelId, groupId, courseId, createdAt } = courseprogress
     const row: CourseProgressRow = {
       admissionCardNumber,
       courseId: courseId.toString(),

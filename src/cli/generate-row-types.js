@@ -38,6 +38,8 @@ const mapColumnType = (type) => {
   switch (type) {
     case 'TEXT':
       return 'string';
+    case 'INTEGER':
+      return 'number';
     default:
       throw Error(`Unknown column type ${type}`)
   }
