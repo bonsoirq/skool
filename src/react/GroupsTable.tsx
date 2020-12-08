@@ -9,34 +9,34 @@ interface IProps {
   viewRows: GroupsViewRow[],
   removeGroup(id: UUIDv4): void,
 }
-export function GroupsTable({ viewRows, removeGroup }: IProps){
-    return (
-      <>
-        <table>
-          <thead>
-            <tr>
-              <th>no.</th>
-              <th>Name</th>
-              <th>AdvancementLevel</th>
-              <th>Created</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {viewRows.map((group, i) => <tr key={group.id}>
-              <td>{i + 1}.</td>
-              <td>{group.name}</td>
-              <td>{group.advancementLevelName}</td>
-              <td>{formatDate(SerializeDate.toObject(group.createdAt))}</td>
-              <td>
-                <button onClick={() => removeGroup(UUID(group.id))}>Delete</button>
-              </td>
-            </tr>
-            )}
-          </tbody>
-        </table>
-      </>
-    );
+export function GroupsTable({ viewRows, removeGroup }: IProps) {
+  return <table>
+    <thead>
+      <tr>
+        <th>no.</th>
+        <th>Name</th>
+        <th>AdvancementLevel</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {viewRows.map((group, i) => <tr key={group.id}>
+        <td>{i + 1}.</td>
+        <td>{group.name}</td>
+        <td>{group.advancementLevelName}</td>
+        <td>{formatDate(SerializeDate.toObject(group.createdAt))}</td>
+        <td>
+          <button onClick={() => {
+            if (window.confirm(`Do you want to delete ${group.name}?`)) {
+              removeGroup(UUID(group.id))
+            }
+          }}>Delete</button>
+        </td>
+      </tr>
+      )}
+    </tbody>
+  </table>
 }
 
 GroupsTable.defaultProps = {

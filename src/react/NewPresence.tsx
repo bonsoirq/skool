@@ -11,7 +11,6 @@ import { AppContext } from './AppContext';
 import { AdmissionCardsRepo } from '../repos/admission-cards-repo';
 import { PresenceRepo } from '../repos/presence-repo';
 import { head } from '../util/array';
-import { findStudentProgress } from '../use-case/find-student-progress';
 import { findOrCreateStudentProgress } from '../use-case/find-or-create-student-progress';
 import { UUID } from '../values/uuid';
 

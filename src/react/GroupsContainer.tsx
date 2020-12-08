@@ -4,7 +4,6 @@ import { GroupsRepo } from '../repos/groups-repo';
 import { GroupsTable } from './GroupsTable';
 import { AppContext } from './AppContext';
 import { NewGroup } from './NewGroup';
-import { GroupAggregate } from '../aggregates/group-aggregate';
 import { GroupAggregatesRepo } from '../repos/group-aggregates-repo';
 import { Course } from '../entities/course';
 import { GroupsViewRow } from '../generated/row-types';

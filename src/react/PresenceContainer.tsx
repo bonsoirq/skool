@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Presence } from '../entities/presence';
-import { DetailedPresence, PresenceRepo } from '../repos/presence-repo';
+import { PresenceRepo } from '../repos/presence-repo';
 import { AppContext } from './AppContext';
 import { Course } from '../entities/course';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
