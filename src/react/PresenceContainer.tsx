@@ -12,10 +12,11 @@ import { PresenceTable } from './PresenceTable';
 import { CourseProgressRepo } from '../repos/course-progress-repo';
 import { AdvancementLevelsRepo } from '../repos/advancement-levels-repo';
 import { buildCourseProgress } from '../entities/course-progress';
-import { PresenceViewRow } from '../generated/row-types';
+import { CourseProgressViewRow, PresenceViewRow } from '../generated/row-types';
 
 interface IState {
   viewRows: PresenceViewRow[],
+  lessonGroupMembers: CourseProgressViewRow[],
   lesson: Lesson | null
 }
 
@@ -37,12 +38,14 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
 
   state: IState = {
     viewRows: [],
+    lessonGroupMembers: [],
     lesson: null,
   }
   async componentDidMount() {
     const lessonId = this.props.match.params.id
-    const lesson = head(await this._lessonRepository.find({ 'Lessons.id': lessonId }))!
-    this.setState(() => ({ lesson }), () => {
+    const lesson = head(await this._lessonRepository.find({ id: lessonId }))!
+    const lessonGroupMembers = await this._progressRepository.findView({ groupId: lesson.groupId.toString() })
+    this.setState(() => ({ lesson, lessonGroupMembers }), () => {
       this.fetchPresences()
     })
   }
@@ -77,12 +80,42 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
       .then(viewRows => this.setState(() => ({ viewRows })))
   }
 
+  get numberOfMen () {
+    return this.state.viewRows.filter(x => x.studentGender === 'male').length
+  }
+
+  get numberOfLadies () {
+    return this.state.viewRows.filter(x => x.studentGender === 'female').length
+  }
+
+  get numberOfAdditionalMembers () {
+    const { lesson, viewRows } = this.state
+    return viewRows.filter(x => x.studentAdvancementLevelId !== lesson!.advancementLevelId.toString()).length
+  }
+
+  get regularMembersPresence () {
+    const { viewRows, lessonGroupMembers } = this.state
+    return Math.ceil((viewRows.length - this.numberOfAdditionalMembers) / lessonGroupMembers.length * 100)
+  }
+
+  get regularMembersNumber () {
+    const { lessonGroupMembers } = this.state
+    return lessonGroupMembers.length
+  }
+
   render() {
     const { lesson, viewRows } = this.state
     if (lesson == null) return null
     return (
-      <>
-        <NewPresence lesson={lesson} onCreate={x => this.addPresence(x)} />
+      <div className="PresenceContainer">
+        <div className="summary-row">
+          <NewPresence lesson={lesson} onCreate={x => this.addPresence(x)} />
+          <div className="summary-card">
+            <div><span className="form-label">Gentlemen:</span> {this.numberOfMen}</div>
+            <div><span className="form-label">Ladies:</span> {this.numberOfLadies}</div>
+            <div><span className="form-label">Presence:</span> {viewRows.length} / {this.regularMembersNumber} ({this.regularMembersPresence}%)</div>
+          </div>
+        </div>
         <PresenceTable
           viewRows={viewRows}
           removePresence={async (admissionCardNumber, lessonId) => {
@@ -90,7 +123,7 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
             this.fetchPresences()
           }}
         />
-      </>
+      </div>
     );
   }
 }
