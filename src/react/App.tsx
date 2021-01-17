@@ -19,6 +19,7 @@ import { PresenceContainer } from './PresenceContainer';
 import 'normalize.css'
 import './App.css'
 import { HeaderLayout } from './components/HeaderLayout';
+import { StudentDetails } from './StudentDetails'
 
 class App extends Component<null, IAppState> {
   state = {
@@ -64,6 +65,9 @@ class App extends Component<null, IAppState> {
                   <HeaderLayout>
                     <StudentsContainer />
                   </HeaderLayout>
+                </Route>
+                <Route exact path='/Students/:id'>
+                  <StudentDetails />
                 </Route>
                 <CourseProvider>
                   <CourseContext.Consumer>

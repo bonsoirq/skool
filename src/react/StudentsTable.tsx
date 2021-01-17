@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Student } from '../entities/student';
 import { formatDate } from '../util/date';
 import { noop } from '../util/function';
@@ -33,6 +34,9 @@ export function StudentsTable({ students, removeStudent }: IProps) {
               removeStudent(student.id)
             }
           }}>Delete</button>
+          <Link to={`/Students/${student.id.toString()}`}>
+            <button>Details</button>
+          </Link>
         </td>
       </tr>
       )}

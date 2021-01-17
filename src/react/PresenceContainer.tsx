@@ -113,7 +113,7 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
           <div className="summary-card">
             <div><span className="form-label">Gentlemen:</span> {this.numberOfMen}</div>
             <div><span className="form-label">Ladies:</span> {this.numberOfLadies}</div>
-            <div><span className="form-label">Presence:</span> {viewRows.length} / {this.regularMembersNumber} ({this.regularMembersPresence}%)</div>
+            <div><span className="form-label">Presence:</span> {viewRows.length} / {this.regularMembersNumber} ({this.regularMembersNumber > 0 ? this.regularMembersPresence : '–'}%)</div>
           </div>
         </div>
         <PresenceTable
