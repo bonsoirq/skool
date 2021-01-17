@@ -40,7 +40,6 @@ function UndecoratedStudentDetails(props: IProps & RouteComponentProps) {
       setStudent(student)
       setCards(admisionCards)
       setCourseProgress(courseProgress)
-      console.log({ student, admisionCards, courseProgress });
     })()
   }, []);
 
