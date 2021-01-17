@@ -13,10 +13,10 @@ export function AdmissionCardsTable({ viewRows }: IProps){
         <table>
           <thead>
             <tr>
-              <th>no.</th>
-              <th>Number</th>
-              <th>Student</th>
-              <th>Registration Date</th>
+              <th>l.p.</th>
+              <th>Numer</th>
+              <th>Kursant</th>
+              <th>Data rejestracji</th>
             </tr>
           </thead>
           <tbody>

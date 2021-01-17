@@ -36,7 +36,7 @@ export class StudentAutocomplete extends Component<IProps, IState> {
         handleInputChange,
         restoreInitialValues,
       }) => <label htmlFor="studentSearch">
-          <span className="form-label">Student: <StudentName student={student} /></span>
+          <span className="form-label">Kursant: <StudentName student={student} /></span>
           <Autocomplete
             suggestions={suggestedStudents}
             name="studentSearch"

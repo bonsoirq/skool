@@ -13,11 +13,11 @@ export function GroupsTable({ viewRows, removeGroup }: IProps) {
   return <table>
     <thead>
       <tr>
-        <th>no.</th>
-        <th>Name</th>
-        <th>AdvancementLevel</th>
-        <th>Created</th>
-        <th>Actions</th>
+        <th>l.p.</th>
+        <th>Nazwa</th>
+        <th>Poziom zaawansowania</th>
+        <th>Utworzony</th>
+        <th>Akcje</th>
       </tr>
     </thead>
     <tbody>
@@ -28,10 +28,10 @@ export function GroupsTable({ viewRows, removeGroup }: IProps) {
         <td>{formatDate(SerializeDate.toObject(group.createdAt))}</td>
         <td>
           <button onClick={() => {
-            if (window.confirm(`Do you want to delete ${group.name}?`)) {
+            if (window.confirm(`Na pewno chcesz usunąć ${group.name}?`)) {
               removeGroup(UUID(group.id))
             }
-          }}>Delete</button>
+          }}>Usuń</button>
         </td>
       </tr>
       )}

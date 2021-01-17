@@ -43,7 +43,7 @@ export class NewAdmissionCard extends Component<IProps, IState> {
         handleSubmit,
       }) =>
         <>
-          <h3>Add an admissionCard</h3>
+          <h3>Dodaj karnet</h3>
           <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { number } = values
@@ -56,7 +56,7 @@ export class NewAdmissionCard extends Component<IProps, IState> {
             })
           }}>
             <label htmlFor="number">
-              <span className="form-label">Number:</span>
+              <span className="form-label">Numer:</span>
               <input
                 className="form-field"
                 name="number"
@@ -76,7 +76,7 @@ export class NewAdmissionCard extends Component<IProps, IState> {
             <input
               className="form-field"
               type="submit"
-              value="Add"
+              value="Dodaj"
               disabled={!isValid}
             />
           </form>
@@ -87,15 +87,15 @@ export class NewAdmissionCard extends Component<IProps, IState> {
 
   validations = {
     number: async (number: string) => {
-      if (isBlank(number)) return 'Required'
-      if (!toArray(number).every(isDigit)) return 'Only numbers allowed'
-      if (number.length !== NUMBER_DIGIT_COUNT) return `${NUMBER_DIGIT_COUNT} digits required`
+      if (isBlank(number)) return 'Wymagane'
+      if (!toArray(number).every(isDigit)) return 'Można wpisywać tylko cyfry'
+      if (number.length !== NUMBER_DIGIT_COUNT) return `${NUMBER_DIGIT_COUNT} cyfr wymagane`
       const aggregate = await this._repo.findByNumber(number)
-      if (!isNullish(aggregate)) return `Already assigned to ${fullName(aggregate!.student)}`
+      if (!isNullish(aggregate)) return `Już przypisano do ${fullName(aggregate!.student)}`
       return null
     },
     student: () => {
-      if (this.state.student == null) return 'Student required'
+      if (this.state.student == null) return 'Wybierz kursanta'
     }
   }
 }

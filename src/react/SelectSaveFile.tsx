@@ -9,7 +9,7 @@ interface IProps {
 export function SelectSaveFile(props: IProps) {
   return (
     <>
-      <h3>No save file detected</h3>
+      <h3>Nie wykryto pliku zapisu</h3>
       <button
         onClick={async e => {
           const path = await openFileDialog()
@@ -21,7 +21,7 @@ export function SelectSaveFile(props: IProps) {
           }
         }}
       >
-        Open file
+        Otwórz plik...
       </button>
       <button
         onClick={async e => {
@@ -33,7 +33,7 @@ export function SelectSaveFile(props: IProps) {
           }
         }}
       >
-        New save file
+        Nowy plik...
       </button>
     </>
   );

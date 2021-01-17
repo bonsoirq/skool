@@ -15,13 +15,13 @@ export function PresenceTable({ viewRows, removePresence }: IProps){
         <table>
           <thead>
             <tr>
-              <th>no.</th>
-              <th>Student</th>
-              <th>Admission Card</th>
-              <th>AdvancementLevel</th>
-              <th>Group</th>
-              <th>Created</th>
-              <th>Actions</th>
+              <th>l.p.</th>
+              <th>Kursant</th>
+              <th>Karnet</th>
+              <th>Poziom zaawansowania</th>
+              <th>Grupa</th>
+              <th>Utworzony</th>
+              <th>Akcje</th>
             </tr>
           </thead>
           <tbody>
@@ -33,7 +33,7 @@ export function PresenceTable({ viewRows, removePresence }: IProps){
               <td>{x.studentGroupName}</td>
               <td>{formatDate(SerializeDate.toObject(x.createdAt))}</td>
               <td>
-                <button onClick={() => removePresence(x.admissionCardNumber, UUID(x.lessonId))}>Delete</button>
+                <button onClick={() => removePresence(x.admissionCardNumber, UUID(x.lessonId))}>Usuń</button>
               </td>
             </tr>
             )}

@@ -28,7 +28,7 @@ export class NewCourse extends Component<IProps, IState> {
         handleSubmit,
       }) =>
         <>
-          <h3>New course</h3>
+          <h3>Nowy kurs</h3>
           <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { name } = values
@@ -38,7 +38,7 @@ export class NewCourse extends Component<IProps, IState> {
             })
           }}>
             <label>
-              <span className="form-label">Name:</span>
+              <span className="form-label">Nazwa:</span>
               <input
                 className="form-field"
                 name="name"
@@ -53,7 +53,7 @@ export class NewCourse extends Component<IProps, IState> {
             <input
               className="form-field"
               type="submit"
-              value="Create"
+              value="Utwórz"
               disabled={!isValid}
             />
           </form>
@@ -63,6 +63,6 @@ export class NewCourse extends Component<IProps, IState> {
   }
 
   validations = {
-    name: (name: string) => isBlank(name) ? 'Required' : null,
+    name: (name: string) => isBlank(name) ? 'Wymagane' : null,
   }
 }

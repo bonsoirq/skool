@@ -43,7 +43,7 @@ export class CourseSelect extends Component<IProps, IState> {
     const { courses } = this.state
     if (isEmptyArray(courses)) {
       return <select disabled>
-        <option>No courses available</option>
+        <option>Brak kursów</option>
       </select>
     }
     return <select

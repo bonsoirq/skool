@@ -55,7 +55,7 @@ export class GroupSelect extends Component<IProps, IState> {
       return <select
         className="form-field"
         disabled>
-        <option>No groups available</option>
+        <option>Brak grup</option>
       </select>
     }
     return <select

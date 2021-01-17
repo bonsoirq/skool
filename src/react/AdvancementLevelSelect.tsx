@@ -52,7 +52,7 @@ export class AdvancementLevelSelect extends Component<IProps, IState> {
     const { advancementlevels } = this.state
     if (isEmptyArray(advancementlevels)) {
       return <select disabled>
-        <option>No advancement levels available</option>
+        <option>Brak poziomów zaawansowania</option>
       </select>
     }
     return <select

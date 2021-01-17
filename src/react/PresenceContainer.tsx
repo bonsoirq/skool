@@ -111,9 +111,9 @@ class UndecoratedPresenceContainer extends Component<IProps & RouteComponentProp
         <div className="summary-row">
           <NewPresence lesson={lesson} onCreate={x => this.addPresence(x)} />
           <div className="summary-card">
-            <div><span className="form-label">Gentlemen:</span> {this.numberOfMen}</div>
-            <div><span className="form-label">Ladies:</span> {this.numberOfLadies}</div>
-            <div><span className="form-label">Presence:</span> {viewRows.length} / {this.regularMembersNumber} ({this.regularMembersNumber > 0 ? this.regularMembersPresence : '–'}%)</div>
+            <div><span className="form-label">Panowie:</span> {this.numberOfMen}</div>
+            <div><span className="form-label">Panie:</span> {this.numberOfLadies}</div>
+            <div><span className="form-label">Frekwencja:</span> {viewRows.length} / {this.regularMembersNumber} ({this.regularMembersNumber > 0 ? this.regularMembersPresence : '–'}%)</div>
           </div>
         </div>
         <PresenceTable

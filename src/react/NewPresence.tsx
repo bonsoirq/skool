@@ -49,7 +49,7 @@ export class NewPresence extends Component<IProps, IState> {
         setValues,
       }) =>
         <>
-          <h3>New presence | {this.props.lesson.topic}</h3>
+          <h3>Nowa obecność | {this.props.lesson.topic}</h3>
           <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, async () => {
               const { admissionCardNumber } = values
@@ -72,7 +72,7 @@ export class NewPresence extends Component<IProps, IState> {
             })
           }}>
             <label>
-              <span className="form-label">Admission Card number:</span>
+              <span className="form-label">Numer karnetu:</span>
               <input
                 className="form-field"
                 name="admissionCardNumber"
@@ -88,14 +88,14 @@ export class NewPresence extends Component<IProps, IState> {
             <input
               className="form-field"
               type="button"
-              value="Fill"
+              value="Wypełnij zera wiodące"
               onClick={() => {
               setValues(v => ({ admissionCardNumber: v.admissionCardNumber.padStart(NUMBER_DIGIT_COUNT, '0')}))
             }} />
             <input
               className="form-field"
               type="submit"
-              value="Create"
+              value="Utwórz"
               disabled={!isValid}
             />
           </form>
@@ -107,9 +107,9 @@ export class NewPresence extends Component<IProps, IState> {
   validations = {
     admissionCardNumber: async (number: string) => {
       const { lesson } = this.props
-      if (isBlank(number)) return 'Required'
-      if (isNullish(await this._cardRepo.findByNumber(number))) return 'No such admission card'
-      if (!isNullish(head(await this._repo.find({ lessonId: lesson.id.toString(), admissionCardNumber: number })))) return 'Already checked presence'
+      if (isBlank(number)) return 'Wymagane'
+      if (isNullish(await this._cardRepo.findByNumber(number))) return 'Nie ma takiego karnetu'
+      if (!isNullish(head(await this._repo.find({ lessonId: lesson.id.toString(), admissionCardNumber: number })))) return 'Obecność już odnotowana'
     }
   }
 }

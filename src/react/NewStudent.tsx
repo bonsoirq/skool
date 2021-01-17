@@ -35,7 +35,7 @@ export class NewStudent extends Component<IProps, IState> {
             handleSubmit,
           }) =>
           <>
-            <h3>Add a student</h3>
+            <h3>Dodaj kursanta</h3>
             <form className="form-inline" action="" onSubmit={e => {
               handleSubmit(e, () => {
                 const { name, lastName, phoneNo, gender } = values
@@ -45,7 +45,7 @@ export class NewStudent extends Component<IProps, IState> {
               })
             }}>
               <label>
-                <span className="form-label">Name:</span>
+                <span className="form-label">Imię:</span>
                 <input
                   className="form-field"
                   name="name"
@@ -58,7 +58,7 @@ export class NewStudent extends Component<IProps, IState> {
                 <span className="error-message">{errors.name}</span>
               </label>
               <label>
-                <span className="form-label">Lastname:</span>
+                <span className="form-label">Nazwisko:</span>
                 <input
                   className="form-field"
                   name="lastName"
@@ -71,19 +71,19 @@ export class NewStudent extends Component<IProps, IState> {
                 <span className="error-message">{errors.lastName}</span>
               </label>
               <label>
-                <span className="form-label">Gender:</span>
+                <span className="form-label">Płeć:</span>
                 <select
                   className="form-field"
                   name="gender"
                   value={values.gender}
                   onChange={handleInputChange}>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="male">Mężczyzna</option>
+                  <option value="female">Kobieta</option>
                 </select>
                 <span className="error-message"></span>
               </label>
               <label>
-                <span className="form-label">Phone Number:</span>
+                <span className="form-label">Telefon:</span>
                 <input
                   className="form-field"
                   name="phoneNo"
@@ -98,7 +98,7 @@ export class NewStudent extends Component<IProps, IState> {
               <input
                 className="form-field"
                 type="submit"
-                value="Add a student"
+                value="Dodaj"
                 disabled={!isValid}
               />
             </form>
@@ -109,8 +109,8 @@ export class NewStudent extends Component<IProps, IState> {
   }
 
   validations = {
-    name: (name: string) => isBlank(name) ? 'Required' : null,
-    lastName: (lastName: string) => isBlank(lastName) ? 'Required' : null,
-    phoneNo: (phoneNo: string) => PhoneNumber.isValid(phoneNo) ? null : 'Invalid phone number',
+    name: (name: string) => isBlank(name) ? 'Wymagane' : null,
+    lastName: (lastName: string) => isBlank(lastName) ? 'Wymagane' : null,
+    phoneNo: (phoneNo: string) => PhoneNumber.isValid(phoneNo) ? null : 'Nieprawidłowy numer telefonu',
   }
 }

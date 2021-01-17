@@ -12,10 +12,10 @@ export function CoursesTable({ courses, removeCourse }: IProps) {
   return <table>
     <thead>
       <tr>
-        <th>no.</th>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Actions</th>
+        <th>l.p.</th>
+        <th>Nazwa</th>
+        <th>Utworzony</th>
+        <th>Akcje</th>
       </tr>
     </thead>
     <tbody>
@@ -25,10 +25,10 @@ export function CoursesTable({ courses, removeCourse }: IProps) {
         <td>{formatDate(course.createdAt)}</td>
         <td>
           <button onClick={() => {
-            if (window.confirm(`Do you want to delete ${course.name}?`)) {
+            if (window.confirm(`Na pewno chcesz usunąć ${course.name}?`)) {
               removeCourse(course.id)
             }
-          }}>Delete</button>
+          }}>Usuń</button>
         </td>
       </tr>
       )}

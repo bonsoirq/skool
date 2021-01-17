@@ -32,7 +32,7 @@ export class NewAdvancementLevel extends Component<IProps, any> {
         handleSubmit,
       }) =>
         <>
-          <h3>New advancement level</h3>
+          <h3>Nowy poziom zaawansowania</h3>
           <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, async () => {
               const { name } = values
@@ -49,7 +49,7 @@ export class NewAdvancementLevel extends Component<IProps, any> {
             })
           }}>
             <label>
-              <span className="form-label">Name:</span>
+              <span className="form-label">Nazwa:</span>
               <input
                 className="form-field"
                 name="name"
@@ -64,7 +64,7 @@ export class NewAdvancementLevel extends Component<IProps, any> {
             <input
               className="form-field"
               type="submit"
-              value="Create"
+              value="Utwórz"
               disabled={!isValid}
             />
           </form>
@@ -74,6 +74,6 @@ export class NewAdvancementLevel extends Component<IProps, any> {
   }
 
   validations = {
-    name: (name: string) => isBlank(name) ? 'Required' : null,
+    name: (name: string) => isBlank(name) ? 'Wymagane' : null,
   }
 }

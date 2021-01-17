@@ -15,12 +15,12 @@ export function LessonsTable({ viewRows, removeLesson }: IProps) {
   return <table>
     <thead>
       <tr>
-        <th>no.</th>
-        <th>Topic</th>
-        <th>Group</th>
-        <th>AdvancementLevel</th>
-        <th>Created</th>
-        <th>Actions</th>
+        <th>l.p.</th>
+        <th>Temat</th>
+        <th>Grupa</th>
+        <th>Poziom zaawansowania</th>
+        <th>Utworzony</th>
+        <th>Akcje</th>
       </tr>
     </thead>
     <tbody>
@@ -32,12 +32,12 @@ export function LessonsTable({ viewRows, removeLesson }: IProps) {
         <td>{formatDate(SerializeDate.toObject(lesson.createdAt))}</td>
         <td>
           <button onClick={() => {
-            if (window.confirm(`Do you want to delete ${lesson.topic}?`)) {
+            if (window.confirm(`Na pewno chcesz usunąć ${lesson.topic}?`)) {
               removeLesson(UUID(lesson.id))
             }
-          }}>Delete</button>
+          }}>Usuń</button>
           <Link to={`/Lessons/${lesson.id.toString()}/Presence`}>
-            <button>Check presence</button>
+            <button>Sprawdź obecność</button>
           </Link>
         </td>
       </tr>

@@ -39,7 +39,7 @@ export class NewLesson extends Component<IProps, IState> {
         handleSubmit,
       }) =>
         <>
-          <h3>New lesson</h3>
+          <h3>Nowe zajęcia</h3>
           <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { topic } = values
@@ -50,7 +50,7 @@ export class NewLesson extends Component<IProps, IState> {
             })
           }}>
             <label>
-              <span className="form-label">Topic:</span>
+              <span className="form-label">Temat:</span>
               <input
                 className="form-field"
                 name="topic"
@@ -65,7 +65,7 @@ export class NewLesson extends Component<IProps, IState> {
             <CourseContext.Consumer>
               {({ course }) => <>
                 <label>
-                  <span className="form-label">Group:</span>
+                  <span className="form-label">Grupa:</span>
                   <GroupSelect
                     course={course!}
                     onSelect={group => {
@@ -75,7 +75,7 @@ export class NewLesson extends Component<IProps, IState> {
                   <span className="error-message">{errors.group}</span>
                 </label>
                 <label>
-                  <span className="form-label">Advancement level:</span>
+                  <span className="form-label">Poziom zaawansowania:</span>
                   <AdvancementLevelSelect
                     course={course!}
                     onSelect={advancementLevel => {
@@ -89,7 +89,7 @@ export class NewLesson extends Component<IProps, IState> {
             <input
               className="form-field"
               type="submit"
-              value="Create"
+              value="Utwórz"
               disabled={!isValid}
             />
           </form>
@@ -99,8 +99,8 @@ export class NewLesson extends Component<IProps, IState> {
   }
 
   validations = {
-    topic: (topic: string) => isBlank(topic) ? 'Required' : null,
-    advancementLevel: () => isNullish(this.state.advancementLevel) ? 'Required' : null,
-    group: () => isNullish(this.state.group) ? 'Required' : null,
+    topic: (topic: string) => isBlank(topic) ? 'Wymagane' : null,
+    advancementLevel: () => isNullish(this.state.advancementLevel) ? 'Wymagane' : null,
+    group: () => isNullish(this.state.group) ? 'Wymagane' : null,
   }
 }

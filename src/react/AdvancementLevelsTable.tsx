@@ -18,10 +18,10 @@ export function AdvancementLevelsTable({ advancementLevels, removeAdvancementLev
   return <table>
     <thead>
       <tr>
-        <th>no.</th>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Actions</th>
+        <th>l.p.</th>
+        <th>Nazwa</th>
+        <th>Utworzony</th>
+        <th>Akcje</th>
       </tr>
     </thead>
     <tbody>
@@ -31,10 +31,10 @@ export function AdvancementLevelsTable({ advancementLevels, removeAdvancementLev
         <td>{formatDate(advancementLevel.createdAt)}</td>
         <td className="actions">
           <button onClick={() => {
-            if (window.confirm(`Do you want to delete ${advancementLevel.name}?`)) {
+            if (window.confirm(`Na pewno chcesz usunąć ${advancementLevel.name}?`)) {
               removeAdvancementLevel(advancementLevel.id)
             }
-          }}>Delete</button>
+          }}>Usuń</button>
           <div className="sorting-buttons">
             <button
               disabled={advancementLevel === head(advancementLevels)}

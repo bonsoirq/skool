@@ -35,7 +35,7 @@ export class NewGroup extends Component<IProps, IState> {
         handleSubmit,
       }) =>
         <>
-          <h3>New group</h3>
+          <h3>Nowa grupa</h3>
           <form className="form-inline" action="" onSubmit={e => {
             handleSubmit(e, () => {
               const { name } = values
@@ -46,7 +46,7 @@ export class NewGroup extends Component<IProps, IState> {
             })
           }}>
             <label>
-            <span className="form-label">Name:</span>
+            <span className="form-label">Nazwa:</span>
             <input
                 className="form-field"
                 name="name"
@@ -59,7 +59,7 @@ export class NewGroup extends Component<IProps, IState> {
               <span className="error-message">{errors.name}</span>
             </label>
             <label>
-              <span className="form-label">Advancement level:</span>
+              <span className="form-label">Poziom zaawansowania:</span>
               <CourseContext.Consumer>
                 {({ course }) => <>
                   <AdvancementLevelSelect
@@ -75,7 +75,7 @@ export class NewGroup extends Component<IProps, IState> {
             <input
               className="form-field"
               type="submit"
-              value="Create"
+              value="Utwórz"
               disabled={!isValid}
             />
           </form>
@@ -85,7 +85,7 @@ export class NewGroup extends Component<IProps, IState> {
   }
 
   validations = {
-    name: (name: string) => isBlank(name) ? 'Required' : null,
-    advancementLevel: () => isNullish(this.state.advancementLevel) ? 'Required' : null,
+    name: (name: string) => isBlank(name) ? 'Wymagane' : null,
+    advancementLevel: () => isNullish(this.state.advancementLevel) ? 'Wymagane' : null,
   }
 }

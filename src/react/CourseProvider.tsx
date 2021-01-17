@@ -33,7 +33,7 @@ export class CourseProvider extends Component<any, ICourseContext> {
     return <>
       <header>
         <label htmlFor="contextCourse">
-          <span className="form-label">Current Course:</span>
+          <span className="form-label">Aktywny kurs:</span>
           <CourseSelect name="contextCourse" onSelect={course => this.setState(() => ({ course }))} />
         </label>
       </header>
